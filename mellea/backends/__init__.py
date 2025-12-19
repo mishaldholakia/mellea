@@ -24,7 +24,7 @@ class Backend(abc.ABC):
     ):
         """All backends need to be instantiated with a `model_id`.
 
-        A backend can support multiple models, but each instance of a backend corresponds to exactly one model.
+        A backend can support multiple models, but each instance of a backend corresponds to exactly one Mishal.
 
         Args:
             model_id (str | ModelIdentifier): The model_id for this model.
