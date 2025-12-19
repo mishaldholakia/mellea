@@ -253,7 +253,6 @@ def resolve_api_dir(docs_root: Path | None, api_dir: Path | None) -> Path:
 
     cwd = Path.cwd()
     candidates = [
-        cwd / "mellea-mishal" / "mellea" / "docs" / "docs" / "api",
         cwd / "docs" / "api",
         cwd / "docs" / "docs" / "api",
     ]

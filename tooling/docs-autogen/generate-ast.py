@@ -21,9 +21,9 @@ CLI flags:
                 If omitted, defaults to parent folder of --docs-json.
 
 Usage:
-  python3 generate-ast-merged-cli-full-move.py \
-    --docs-json mellea-mishal/mellea/docs/docs.json \
-    --docs-root mellea-mishal/mellea/docs
+  python3 generate-ast.py \
+    --docs-json docs/docs/docs.json \
+    --docs-root docs/docs
 
 If your docs.json is at .../docs/docs.json, you can omit --docs-root.
 """
@@ -42,7 +42,7 @@ from typing import Any, Dict, List, Optional, Tuple
 NAV_TAB = "API Reference"
 
 # Repo root = folder containing this script
-REPO_ROOT = Path(__file__).resolve().parent
+REPO_ROOT = Path(__file__).resolve().parents[2]  # repo root (e.g., .../mellea)
 
 # Staging location for mdxify output (kept as-is so your local workflow still works)
 STAGING_DOCS_ROOT = REPO_ROOT / "docs"
@@ -106,8 +106,6 @@ def find_docs_json(cli_path: Optional[str]) -> Path:
         REPO_ROOT / "docs.json",
         REPO_ROOT / "docs" / "docs.json",
         REPO_ROOT / "docs" / "docs" / "docs.json",
-        REPO_ROOT / "mellea-mishal" / "mellea" / "docs" / "docs.json",
-        REPO_ROOT / "mellea-mishal" / "mellea" / "docs" / "docs" / "docs.json",
     ]
     for c in candidates:
         if c.exists():
@@ -115,7 +113,7 @@ def find_docs_json(cli_path: Optional[str]) -> Path:
 
     raise FileNotFoundError(
         "Could not locate docs.json. Pass --docs-json explicitly, e.g. "
-        "--docs-json mellea-mishal/mellea/docs/docs.json"
+        "--docs-json docs/docs/docs.json"
     )
 
 
@@ -414,8 +412,13 @@ def move_api_to_docs_root(target_docs_root: Path) -> Path:
     # Move (rename) staging api into target
     shutil.move(str(STAGING_API_DIR), str(target_api_dir))
 
-    # Recreate staging api dir for next run (so mdxify doesn't fail if script runs twice)
-    STAGING_API_DIR.mkdir(parents=True, exist_ok=True)
+    # Optional: remove empty staging docs folder so docs/api does not linger
+    try:
+        if STAGING_DOCS_ROOT.exists() and not any(STAGING_DOCS_ROOT.iterdir()):
+            print(f"🧹 Removing empty staging docs folder: {STAGING_DOCS_ROOT}")
+            shutil.rmtree(STAGING_DOCS_ROOT)
+    except Exception as e:
+        print(f"⚠️ Could not clean staging docs folder: {e}")
 
     print("✅ Move complete.")
     return target_api_dir
