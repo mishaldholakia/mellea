@@ -1,0 +1,72 @@
+name: Auto-generate docs PR
+
+on:
+  push:
+    branches: ["feature/update-docs"]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: docs-autogen-pr-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  docs_autogen:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r tooling/docs-autogen/requirements.txt
+          # Ensure imports resolve to this checkout (for correct source links)
+          pip install -e .
+
+      - name: Generate API docs + merge docs.json
+        run: |
+          set -euxo pipefail
+          python3 tooling/docs-autogen/generate-ast.py \
+            --docs-json docs/docs/docs.json \
+            --docs-root docs/docs
+
+      - name: Decorate API MDX (SidebarFix + pills)
+        run: |
+          set -euxo pipefail
+          python3 tooling/docs-autogen/decorate_api_mdx.py \
+            --docs-root docs/docs
+
+      - name: Show git status
+        run: |
+          git status --porcelain
+          git diff --stat || true
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "docs: auto-generate + decorate"
+          title: "docs: auto-generate + decorate (CI)"
+          body: |
+            This PR was automatically generated from a push to `feature/update-docs`.
+
+            Steps performed:
+            - Generated API MDX docs
+            - Decorated API MDX for Mintlify sidebar badges
+            - Updated docs.json (API Reference tab)
+          branch: "automation/docs-autogen"
+          delete-branch: true
+          labels: |
+            documentation
+            automation
