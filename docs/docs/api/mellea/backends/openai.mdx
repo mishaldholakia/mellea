@@ -1,0 +1,211 @@
+---
+title: "mellea.backends.openai"
+sidebarTitle: "mellea.backends.openai"
+description: "A generic OpenAI compatible backend that wraps around the openai python sdk."
+---
+
+
+
+
+
+import { SidebarFix } from "/snippets/SidebarFix.mdx";
+
+<SidebarFix />
+
+## Classes
+
+---
+
+
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `OpenAIBackend` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/openai.py#L70" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+
+A generic OpenAI compatible backend.
+
+
+**Methods:**
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `filter_openai_client_kwargs` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/openai.py#L198" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+filter_openai_client_kwargs(**kwargs) -> dict
+```
+
+Filter kwargs to only include valid OpenAI client parameters.
+
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `filter_chat_completions_kwargs` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/openai.py#L204" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+filter_chat_completions_kwargs(self, model_options: dict) -> dict
+```
+
+Filter kwargs to only include valid OpenAI chat.completions.create parameters.
+
+https://platform.openai.com/docs/api-reference/chat/create
+
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `filter_completions_kwargs` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/openai.py#L215" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+filter_completions_kwargs(self, model_options: dict) -> dict
+```
+
+Filter kwargs to only include valid OpenAI completions.create parameters.
+
+https://platform.openai.com/docs/api-reference/completions
+
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_context` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/openai.py#L287" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+generate_from_context(self, action: Component | CBlock, ctx: Context)
+```
+
+See `generate_from_chat_context`.
+
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_chat_context` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/openai.py#L308" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+generate_from_chat_context(self, action: Component | CBlock, ctx: Context) -> tuple[ModelOutputThunk, Context]
+```
+
+Generates a new completion from the provided Context using this backend's `Formatter`.
+
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `message_to_openai_message` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/openai.py#L513" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+message_to_openai_message(msg: Message)
+```
+
+Serializes a mellea Message object to the message format required by OpenAI compatible api providers.
+
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `messages_to_docs` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/openai.py#L548" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+messages_to_docs(msgs: list[Message]) -> list[dict[str, str]]
+```
+
+Extracts the docs from a list of messages.
+
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `processing` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/openai.py#L681" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+processing(self, mot: ModelOutputThunk, chunk: ChatCompletion | ChatCompletionChunk)
+```
+
+Called during generation to add information from a single ChatCompletion or ChatCompletionChunk to the ModelOutputThunk.
+
+For OpenAI, tool call parsing is handled in the post processing step.
+
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `post_processing` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/openai.py#L724" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+post_processing(self, mot: ModelOutputThunk, tools: dict[str, Callable], conversation: list[dict], thinking, seed, _format)
+```
+
+Called when generation is done.
+
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_raw` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/openai.py#L779" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+generate_from_raw(self, actions: list[Component | CBlock], ctx: Context) -> list[ModelOutputThunk]
+```
+
+Generate using the completions api. Gives the input provided to the model without templating.
+
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `base_model_name` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/openai.py#L861" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+base_model_name(self)
+```
+
+Returns the base_model_id of the model used by the backend. For example, `granite-3.3-8b-instruct` for `ibm-granite/granite-3.3-8b-instruct`.
+
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `add_adapter` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/openai.py#L865" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+add_adapter(self, adapter: OpenAIAdapter)
+```
+
+Adds the given adapter to the backend. Must not have been added to a different backend.
+
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `load_adapter` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/openai.py#L890" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+load_adapter(self, adapter_qualified_name: str)
+```
+
+Loads the given adapter for the backend. Must have previously been added.
+
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `unload_adapter` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/openai.py#L927" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+unload_adapter(self, adapter_qualified_name: str)
+```
+
+Unloads the given adapter from the backend.
+
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `list_adapters` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/openai.py#L967" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+list_adapters(self) -> list[str]
+```
+
+Lists the adapters added via add_adapter().
+
+:returns: list of adapter names that are currently registered with this backend
+
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `apply_chat_template` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/openai.py#L974" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+apply_chat_template(self, chat: list[dict[str, str]])
+```
+
+Apply the chat template for the model, if such a model is available (e.g., when it can deduce the huggingface model id).
+
+---

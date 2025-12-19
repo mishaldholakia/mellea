@@ -1,4 +1,8 @@
-# Mellea CLI — Train & Upload LoRA/aLoRA Adapters
+---
+title: "Mellea CLI — Train & Upload LoRA/aLoRA Adapters"
+description: "Train and use LoRA / aLoRA adapters as requirement validators in Mellea."
+sidebarTitle: "Training CLI"
+---
 
 Mellea provides a command-line interface for training and uploading [LoRA](https://arxiv.org/abs/2106.09685) or [aLoRA](https://github.com/IBM/alora) adapters for causal language models. This tool is useful for adapting base models like IBM Granite to custom tasks using prompt-based classification. The major goal is to help customer train a requirement validator.
 
@@ -18,6 +22,7 @@ huggingface-cli login  # Optional: only needed for uploads
 ## 📄 Training Data Format
 
 Mellea expects training data in a `.jsonl` file, where each line contains:
+
 - `item`: A user prompt or message
 - `label`: A string classification label
 
@@ -49,16 +54,16 @@ m alora train path/to/data.jsonl \
 
 ### 📌 Parameters
 
-| Flag              | Type    | Default   | Description                                      |
-|-------------------|---------|-----------|--------------------------------------------------|
-| `--basemodel`     | `str`   | *required*| Hugging Face model ID or local path              |
-| `--outfile`       | `str`   | *required*| Directory to save the adapter weights            |
-| `--adapter`       | `str`   | `"alora"` | Choose between `alora` or standard `lora`        |
-| `--epochs`        | `int`   | `6`       | Number of training epochs                        |
-| `--learning-rate` | `float` | `6e-6`    | Learning rate                                    |
-| `--batch-size`    | `int`   | `2`       | Per-device batch size                            |
-| `--max-length`    | `int`   | `1024`    | Max tokenized input length                       |
-| `--grad-accum`    | `int`   | `4`       | Gradient accumulation steps                      |
+| Flag              | Type    | Default    | Description                               |
+| ----------------- | ------- | ---------- | ----------------------------------------- |
+| `--basemodel`     | `str`   | _required_ | Hugging Face model ID or local path       |
+| `--outfile`       | `str`   | _required_ | Directory to save the adapter weights     |
+| `--adapter`       | `str`   | `"alora"`  | Choose between `alora` or standard `lora` |
+| `--epochs`        | `int`   | `6`        | Number of training epochs                 |
+| `--learning-rate` | `float` | `6e-6`     | Learning rate                             |
+| `--batch-size`    | `int`   | `2`        | Per-device batch size                     |
+| `--max-length`    | `int`   | `1024`     | Max tokenized input length                |
+| `--grad-accum`    | `int`   | `4`        | Gradient accumulation steps               |
 
 ---
 
@@ -72,12 +77,12 @@ m alora upload ./checkpoints/alora_adapter \
 ```
 
 This will:
+
 - Create the Hugging Face model repo (if it doesn't exist)
 - Upload the contents of the `outfile` directory
 - Requires a valid `HF_TOKEN` via `huggingface-cli login`
 
 ---
-
 
 ## 🛠 Requirements
 
@@ -89,7 +94,6 @@ This will:
   - `datasets`
   - `huggingface_hub`
   - `alora`
-
 
 ---
 
@@ -103,8 +107,8 @@ To verify the `alora-train` and `alora-upload` functionality, we tested the CLI 
 - **Description**: The TREC dataset consists of open-domain, fact-based questions divided into broad semantic categories. Each example contains a question and a label such as `DESC`, `HUM`, `LOC`, etc.
 - **Used format**:
   ```json
-  {"item": "What is the capital of France?", "label": "LOC"}
-
+  { "item": "What is the capital of France?", "label": "LOC" }
+  ```
 
 ### 📚 2. SST-2 (Stanford Sentiment Treebank v2)
 
@@ -112,4 +116,9 @@ To verify the `alora-train` and `alora-upload` functionality, we tested the CLI 
 - **Description**: SST-2 is a binary sentiment classification dataset based on movie review sentences. Each entry is labeled as either `POSITIVE` or `NEGATIVE`.
 - **Used format**:
   ```json
-  {"item": "A beautiful, poetic piece of cinema.", "label": "POSITIVE"}
+  { "item": "A beautiful, poetic piece of cinema.", "label": "POSITIVE" }
+  ```
+
+## Further reading
+
+- [Requirement → aLoRA rerouting semantics](/dev/requirement-alora-rerouting)

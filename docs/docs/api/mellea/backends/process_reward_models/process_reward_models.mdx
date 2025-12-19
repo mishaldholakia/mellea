@@ -1,0 +1,53 @@
+---
+title: "mellea.backends.process_reward_models"
+sidebarTitle: "mellea.backends.process_reward_models"
+description: "Abstract interfaces for Backends that implement Process Reward Models (can be adapted to include other scorers)."
+---
+
+
+
+
+
+import { SidebarFix } from "/snippets/SidebarFix.mdx";
+
+<SidebarFix />
+
+## Classes
+
+---
+
+
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `PRM` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/process_reward_models/__init__.py#L6" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+
+Mixin for Process Reward Model Backends.
+
+
+**Methods:**
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `score` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/process_reward_models/__init__.py#L15" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+score(self, query: str, response: str) -> tuple[list[float], list[list[float]]]
+```
+
+Returns a final score and per-step score to the input of the model.
+
+
+---
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `stepify` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/process_reward_models/__init__.py#L20" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+stepify(self, response: str, step_separator: str) -> list[str]
+```
+
+Splits the assistant response into steps to score.
+
+**Args:**
+- `response`: assistant response to score
+- `step_separator`: string on which to separate the response into steps
+
+---
