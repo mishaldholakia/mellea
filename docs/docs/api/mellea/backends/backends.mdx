@@ -4,10 +4,6 @@ sidebarTitle: "mellea.backends"
 description: "Backends (e.g., ollama, huggingface, openai-compatible) communicate with LLMs."
 ---
 
-
-
-
-
 import { SidebarFix } from "/snippets/SidebarFix.mdx";
 
 <SidebarFix />
@@ -16,12 +12,9 @@ import { SidebarFix } from "/snippets/SidebarFix.mdx";
 
 <hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
-
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `Backend` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/__init__.py#L19" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
-
 An abstract `Backend`.
-
 
 **Methods:**
 
@@ -36,6 +29,7 @@ generate_from_context(self, action: Component | CBlock, ctx: Context) -> tuple[M
 Generates a model output from a context. May not mutate the context. This must be called from a running event loop as it creates a task to run the generation request.
 
 **Args:**
+
 - `action`: The last item of the context should be passed in as an `action` instead of as part of the `ctx`. See `docs/dev/generate_signature_decisions.md`.
 - `ctx`: The rest of the context.
 - `format`: A response format to used for structured outputs / constrained decoding.
@@ -43,8 +37,8 @@ Generates a model output from a context. May not mutate the context. This must b
 - `tool_calls`: If `True`, then tool calls are extracts from the `action` `Component`. Assumption\: if tool_calls is enabled, then the action `Component` has a TemplateRepresentation
 
 **Returns:**
-- a tuple of (ModelOutputThunk, Context) where the Context is the new context after the generation has been completed.
 
+- a tuple of (ModelOutputThunk, Context) where the Context is the new context after the generation has been completed.
 
 <hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
@@ -57,6 +51,7 @@ generate_from_raw(self, actions: list[Component | CBlock], ctx: Context) -> list
 Generates a model output from the provided input. Does not use context or templates.
 
 **Args:**
+
 - `actions`: list of actions to generate responses for. Each action is separate.
 - `ctx`: context passed to generation. Currently not used in generate_from_raw
 - `format`: A response format to used for structured outputs / constrained decoding. Note\: some backends do not support this parameter. They will log warnings and continue to generate.
