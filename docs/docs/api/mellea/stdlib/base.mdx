@@ -52,6 +52,8 @@ blockify(s: str | CBlock | Component) -> CBlock | Component
 A `CBlock` is a block of content that can serve as input to or output from an LLM.
 
 
+
+<div className="h-8" />
 **Methods:**
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
@@ -84,6 +86,8 @@ Sets the value of the block.
 A `ImageBlock` represents an image (as base64 PNG).
 
 
+
+<div className="h-8" />
 **Methods:**
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
@@ -127,6 +131,8 @@ Converts a PIL image to a base64 string representation.
 A `Component` is a composite data structure that is intended to be represented to an LLM.
 
 
+
+<div className="h-8" />
 **Methods:**
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
@@ -161,6 +167,8 @@ Returns: a `TemplateRepresentation` or string
 Documents should typically be used in a Message object.
 
 
+
+<div className="h-8" />
 **Methods:**
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
@@ -203,6 +211,8 @@ Used to track what functions can be used to extract a value from a ModelOutputTh
 A `ModelOutputThunk` is a special type of `CBlock` that we know came from a model's output. It is possible to instantiate one without the output being computed yet.
 
 
+
+<div className="h-8" />
 **Methods:**
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
@@ -292,6 +302,8 @@ A `Context` is used to track the state of a `MelleaSession`.
 A context is immutable. Every alteration leads to a new context.
 
 
+
+<div className="h-8" />
 **Methods:**
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
@@ -444,6 +456,8 @@ Provides a linear list of context components to use for generation, or None if t
 Initializes a chat context with unbounded window_size and is_chat=True by default.
 
 
+
+<div className="h-8" />
 **Methods:**
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
@@ -476,6 +490,8 @@ Returns the context in a linearized form. Uses the window_size set during initia
 A `SimpleContext` is a context in which each interaction is a separate and independent turn. The history of all previous turns is NOT saved..
 
 
+
+<div className="h-8" />
 **Methods:**
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
@@ -529,6 +545,8 @@ A dataclass for capturing the tool calls a model wants to make.
 Provides a unified way to call tools post generation.
 
 
+
+<div className="h-8" />
 **Methods:**
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
