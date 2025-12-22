@@ -89,7 +89,7 @@ SPAN_RE = re.compile(r'\s*<span className="[^"]*rounded-full[^"]*">.*?</span>\s*
 LABEL_RE = re.compile(r'^\[(class|func|Class|funct)\]\s+')
 # DIVIDER_LINE = '---'
 DIVIDER_LINE = '<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />'
-
+SPACER_BLOCK = '<div className="h-8" />'
 
 def pick_kind(name: str, level: int, current_section: str | None) -> str | None:
     if level >= 4:
@@ -150,17 +150,6 @@ def decorate_mdx_body(full_text: str) -> str:
     """
     Applies the pill/divider logic with tight HR placement, WITHOUT triggering
     Setext headings.
-
-    IMPORTANT:
-    - In Markdown, a line of text followed immediately by `---` becomes a Setext H2 heading.
-      That is why you saw long paragraph lines appear in the "On this page" sidebar.
-    - To avoid that, we ensure a blank line exists BEFORE every `---` we insert.
-
-    Horizontal rules (---) are inserted ONLY:
-      - Immediately after "## Classes"
-      - Immediately after "## Functions"
-      - At the end of each class block within the Classes section
-      - At the end of each function block within the Functions section
     """
     lines = full_text.splitlines()
     out: list[str] = []
@@ -176,6 +165,7 @@ def decorate_mdx_body(full_text: str) -> str:
             if ln.strip() != "":
                 return ln.strip() == DIVIDER_LINE
         return False
+
     def append_divider():
         # Ensure previous line is blank to prevent Setext headings.
         if out and out[-1].strip() != "":
@@ -196,6 +186,15 @@ def decorate_mdx_body(full_text: str) -> str:
         # Skip <br />
         if stripped == "<br />":
             continue
+
+        # --- NEW LOGIC START ---
+        # Inject spacer before "**Methods:**"
+        if stripped == "**Methods:**":
+            out.append("") # Ensure we are on a new line
+            out.append(SPACER_BLOCK) # Insert the height div
+            out.append(line)
+            continue
+        # --- NEW LOGIC END ---
 
         # Section headers
         if stripped == "## Classes":
@@ -239,7 +238,6 @@ def decorate_mdx_body(full_text: str) -> str:
         out.pop()
 
     return "\n".join(out) + "\n"
-
 
 # =========================
 # Path resolution + processing
