@@ -14,7 +14,7 @@ import { SidebarFix } from "/snippets/SidebarFix.mdx";
 
 ## Functions
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `default_output_to_bool` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L23" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -30,7 +30,7 @@ Checks if the output is exactly equal to "yes" or "y" (case-insensitive). If not
 check if any of the words in the output are "yes" (case-insensitive).
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `requirement_check_to_bool` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L189" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -45,7 +45,7 @@ By default, the requirement check alora outputs: `{"requirement_likelihood": 0.0
 True if >.5
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `reqify` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L314" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -59,7 +59,7 @@ Maps strings to Requirements.
 This is a utility method for functions that allow you to pass in Requirements as either explicit Requirement objects or strings that you intend to be interpreted as requirements.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `req` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L327" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -71,7 +71,7 @@ req(*args, **kwargs) -> Requirement
 Shorthand for Requirement.__init__.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `check` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L332" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -83,7 +83,7 @@ check(*args, **kwargs) -> Requirement
 Shorthand for Requirement.__init__(..., check_only=True).
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `simple_validate` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L349" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -105,11 +105,11 @@ Validation functions operate over `Context`. Often you do not care about the ent
 - `reason`: only used if the provided function returns a bool; if the validation function fails, a static reason for that failure to give to the llm when repairing
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 ## Classes
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `ValidationResult` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L41" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -120,7 +120,7 @@ ValidationResults store the output of a Requirement's validation. They can be us
 
 **Methods:**
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `reason` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L71" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -131,7 +131,7 @@ reason(self) -> str | None
 Reason for the validation result.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `score` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L76" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -142,7 +142,7 @@ score(self) -> float | None
 An optional score for the validation result.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `thunk` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L81" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -153,7 +153,7 @@ thunk(self) -> ModelOutputThunk | None
 The ModelOutputThunk associated with the validation func if an llm was used to generate the final result.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `context` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L86" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -164,7 +164,7 @@ context(self) -> Context | None
 The context associated with validation if a backend was used to generate the final result.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `as_bool` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L90" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -175,7 +175,7 @@ as_bool(self) -> bool
 Return a boolean value based on the result.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `Requirement` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L99" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -185,7 +185,7 @@ Requirements are a special type of Component used as input to the Validate step 
 
 **Methods:**
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `validate` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L128" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -196,7 +196,7 @@ validate(self, backend: Backend, ctx: Context) -> ValidationResult
 Chooses the appropriate validation strategy and applies that strategy.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `parts` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L164" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -207,7 +207,7 @@ parts(self)
 Returns all of the constituent parts of a Requirement.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `format_for_llm` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L170" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -218,7 +218,7 @@ format_for_llm(self) -> TemplateRepresentation | str
 Some object protocol magic happens here with management of the output.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `LLMaJRequirement` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L183" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -226,7 +226,7 @@ Some object protocol magic happens here with management of the output.
 A requirement that always uses LLM-as-a-Judge. Any available constraint ALoRA will be ignored.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `ALoraRequirement` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L211" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -234,7 +234,7 @@ A requirement that always uses LLM-as-a-Judge. Any available constraint ALoRA wi
 A requirement that always uses an (possibly specified) ALora. If an exception is thrown during the ALora execution path, `mellea` will fall back to LLMaJ. But that is the only case where LLMaJ will be used.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `ScorerRequirement` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L238" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -244,7 +244,7 @@ A requirement that always returns a non-None score. The scorer must also define 
 
 **Methods:**
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `validate` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/requirement.py#L270" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -254,4 +254,4 @@ validate(self, backend: Backend, ctx: Context) -> ValidationResult
 
 Chooses the appropriate validation strategy and applies that strategy. Asserts that the returned ValidationResult has a valid score.
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />

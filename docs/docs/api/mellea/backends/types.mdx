@@ -14,7 +14,7 @@ import { SidebarFix } from "/snippets/SidebarFix.mdx";
 
 ## Classes
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `ModelOption` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/types.py#L10" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -37,7 +37,7 @@ model_options = {
 
 **Methods:**
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `replace_keys` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/types.py#L38" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -68,7 +68,7 @@ Example:
 * Notice that both "k1" and "k2" are absent in the output.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `remove_special_keys` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/types.py#L97" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -79,7 +79,7 @@ remove_special_keys(model_options) -> dict[str, Any]
 Removes all sentiel-valued keys (i.e., those that start with @@@).
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `merge_model_options` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/types.py#L106" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -89,4 +89,4 @@ merge_model_options(persistent_opts: dict[str, Any], overwrite_opts: dict[str, A
 
 Creates a new dict that contains all keys and values from persistent opts and overwrite opts. If there are duplicate keys, overwrite opts key value pairs will be used.
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
