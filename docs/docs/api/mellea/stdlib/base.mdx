@@ -14,7 +14,7 @@ import { SidebarFix } from "/snippets/SidebarFix.mdx";
 
 ## Functions
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `get_images_from_component` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L133" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -27,7 +27,7 @@ get_images_from_component(c: Component) -> None | list[ImageBlock]
 Gets images from a `Component` if they are present and a non-empty list, otherwise returns None.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `blockify` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L404" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -39,11 +39,11 @@ blockify(s: str | CBlock | Component) -> CBlock | Component
 `blockify` is a helper function that turns raw strings into CBlocks.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ## Classes
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `CBlock` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L22" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -54,7 +54,7 @@ A `CBlock` is a block of content that can serve as input to or output from an LL
 
 **Methods:**
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `value` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L35" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -65,7 +65,7 @@ value(self) -> str | None
 Gets the value of the block.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `value` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L40" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -76,7 +76,7 @@ value(self, v: str)
 Sets the value of the block.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `ImageBlock` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L53" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -86,7 +86,7 @@ A `ImageBlock` represents an image (as base64 PNG).
 
 **Methods:**
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `is_valid_base64_png` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L65" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -97,7 +97,7 @@ is_valid_base64_png(s: str) -> bool
 Checks if a string is a valid base64 string [AIA PAI Nc Hin R v1.0].
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `pil_to_base64` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L94" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -108,7 +108,7 @@ pil_to_base64(image: PILImage.Image) -> str
 Converts a PIL image to a base64 string representation.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `from_pil_image` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L101" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -119,7 +119,7 @@ from_pil_image(cls, image: PILImage.Image, meta: dict[str, Any] | None = None) -
 Converts a PIL image to a base64 string representation.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `Component` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L118" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -129,7 +129,7 @@ A `Component` is a composite data structure that is intended to be represented t
 
 **Methods:**
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `parts` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L121" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -140,7 +140,7 @@ parts(self) -> list[Component | CBlock]
 The set of all the constituent parts of the `Component`.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `format_for_llm` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L125" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -153,7 +153,7 @@ Formats the `Component` into a `TemplateRepresentation` or string.
 Returns: a `TemplateRepresentation` or string
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `Document` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L153" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -163,7 +163,7 @@ Documents should typically be used in a Message object.
 
 **Methods:**
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `parts` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L162" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -174,7 +174,7 @@ parts(self) -> list[Component | CBlock]
 The set of all the constituent parts of the `Component`.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `format_for_llm` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L166" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -187,7 +187,7 @@ Formats the `Document` into a string.
 Returns: a string
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `GenerateType` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L181" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -195,7 +195,7 @@ Returns: a string
 Used to track what functions can be used to extract a value from a ModelOutputThunk.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `ModelOutputThunk` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L189" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -205,7 +205,7 @@ A `ModelOutputThunk` is a special type of `CBlock` that we know came from a mode
 
 **Methods:**
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `is_computed` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L232" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -216,7 +216,7 @@ is_computed(self)
 Returns true only if this Thunk has already been filled.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `value` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L237" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -227,7 +227,7 @@ value(self) -> str | None
 Gets the value of the block.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `value` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L244" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -238,7 +238,7 @@ value(self, v: str)
 Sets the value of the block.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `avalue` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L248" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -253,7 +253,7 @@ Returns the value of the ModelOutputThunk. Can be used for both async streaming 
 - `RuntimeError`: If called when the ModelOutputThunk's generate function is not async compatible.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `astream` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L271" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -274,7 +274,7 @@ we see this error happen in a real use case.
 - `RuntimeError`: If called when the ModelOutputThunk's generate function is not async compatible.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `ContextTurn` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L419" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -282,7 +282,7 @@ we see this error happen in a real use case.
 A turn of model input and model output.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `Context` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L429" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -294,7 +294,7 @@ A context is immutable. Every alteration leads to a new context.
 
 **Methods:**
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `from_previous` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L449" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -305,7 +305,7 @@ from_previous(cls: type[ContextT], previous: Context, data: Component | CBlock) 
 Constructs a new context from an existing context.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `reset_to_new` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L466" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -316,7 +316,7 @@ reset_to_new(cls: type[ContextT]) -> ContextT
 Returns an empty context for convenience.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `is_root_node` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L473" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -327,7 +327,7 @@ is_root_node(self) -> bool
 Returns whether this context is the root context node.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `previous_node` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L478" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -340,7 +340,7 @@ Returns the context node from which this context node was created.
 Internal use: Users should not need to use this property.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `node_data` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L486" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -353,7 +353,7 @@ Returns the data associated with this context node.
 Internal use: Users should not need to use this property.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `is_chat_context` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L494" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -364,7 +364,7 @@ is_chat_context(self) -> bool
 Returns whether this context is a chat context.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `as_list` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L500" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -377,7 +377,7 @@ Returns a list of the last n components in the context sorted from FIRST TO LAST
 If `last_n_components` is `None`, then all components are returned.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `actions_for_available_tools` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L528" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -390,7 +390,7 @@ Provides a list of actions to extract tools from for use with during generation,
 Can be used to make the available tools differ from the tools of all the actions in the context. Can be overwritten by subclasses.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `last_output` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L535" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -401,7 +401,7 @@ last_output(self, check_last_n_components: int = 3) -> ModelOutputThunk | None
 The last output thunk of the context.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `last_turn` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L542" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -414,7 +414,7 @@ The last input/output turn of the context.
 This can be partial. If the last event is an input, then the output is None.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `add` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L566" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -425,7 +425,7 @@ add(self, c: Component | CBlock) -> Context
 Returns a new context obtained by adding `c` to this context.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `view_for_generation` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L572" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -436,7 +436,7 @@ view_for_generation(self) -> list[Component | CBlock] | None
 Provides a linear list of context components to use for generation, or None if that is not possible to construct.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `ChatContext` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L577" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -446,7 +446,7 @@ Initializes a chat context with unbounded window_size and is_chat=True by defaul
 
 **Methods:**
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `add` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L585" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -457,7 +457,7 @@ add(self, c: Component | CBlock) -> ChatContext
 Add a new component/cblock to the context. Returns the new context.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `view_for_generation` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L591" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -468,7 +468,7 @@ view_for_generation(self) -> list[Component | CBlock] | None
 Returns the context in a linearized form. Uses the window_size set during initialization.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `SimpleContext` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L596" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -478,7 +478,7 @@ A `SimpleContext` is a context in which each interaction is a separate and indep
 
 **Methods:**
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `add` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L599" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -489,7 +489,7 @@ add(self, c: Component | CBlock) -> SimpleContext
 Add a new component/cblock to the context. Returns the new context.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `view_for_generation` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L603" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -500,7 +500,7 @@ view_for_generation(self) -> list[Component | CBlock] | None
 Returns an empty list.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `TemplateRepresentation` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L609" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -508,7 +508,7 @@ Returns an empty list.
 Representing a component as a set of important attributes that can be consumed by the formatter.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `GenerateLog` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L627" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -519,7 +519,7 @@ GenerateLog provides a structured way to include various details in log entries,
 records of events or operations where context and additional data are significant.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `ModelToolCall` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L646" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -531,7 +531,7 @@ Provides a unified way to call tools post generation.
 
 **Methods:**
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `call_func` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/base.py#L656" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -541,4 +541,4 @@ call_func(self) -> Any
 
 A helper function for calling the function/tool represented by this object.
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---

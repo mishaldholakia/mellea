@@ -14,7 +14,7 @@ import { SidebarFix } from "/snippets/SidebarFix.mdx";
 
 ## Functions
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `chat_response_delta_merge` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/ollama.py#L571" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -31,11 +31,11 @@ Merges the individual ChatResponse chunks from a streaming response into a singl
 - `delta`: the most recent ollama ChatResponse.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ## Classes
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `OllamaModelBackend` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/ollama.py#L43" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -46,7 +46,7 @@ A model that uses the Ollama Python SDK for local inference.
 
 **Methods:**
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `is_model_available` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/ollama.py#L136" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -63,7 +63,7 @@ Checks if a specific Ollama model is available locally.
 - True if the model is available, False otherwise.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_context` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/ollama.py#L255" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -74,7 +74,7 @@ generate_from_context(self, action: Component | CBlock, ctx: Context)
 See `generate_from_chat_context`.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_chat_context` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/ollama.py#L278" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -93,7 +93,7 @@ This will not always work, because sometimes we want to use non-chat models.
 - `RuntimeError`: If not called from a thread with a running event loop.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_raw` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/ollama.py#L390" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -104,7 +104,7 @@ generate_from_raw(self, actions: list[Component | CBlock], ctx: Context) -> list
 Generate using the generate api. Gives the input provided to the model without templating.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `processing` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/ollama.py#L502" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -115,7 +115,7 @@ processing(self, mot: ModelOutputThunk, chunk: ollama.ChatResponse, tools: dict[
 Called during generation to add information from a single ChatResponse to the ModelOutputThunk.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `post_processing` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/ollama.py#L534" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -125,4 +125,4 @@ post_processing(self, mot: ModelOutputThunk, conversation: list[dict], tools: di
 
 Called when generation is done.
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
