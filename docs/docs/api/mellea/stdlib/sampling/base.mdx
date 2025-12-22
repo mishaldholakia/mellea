@@ -14,7 +14,7 @@ import { SidebarFix } from "/snippets/SidebarFix.mdx";
 
 ## Classes
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `BaseSamplingStrategy` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/base.py#L19" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -25,7 +25,7 @@ Base class for multiple strategies that rejects samples based on given instructi
 
 **Methods:**
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `repair` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/base.py#L45" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -46,7 +46,7 @@ Repair function that is being invoked if not all requirements are fulfilled. It 
 - The next action component and context to be used for the next generation attempt.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `select_from_failure` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/base.py#L68" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -65,7 +65,7 @@ This function returns the index of the result that should be selected as `.value
 - The index of the result that should be selected as `.value`.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `sample` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/base.py#L85" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -93,7 +93,7 @@ This method performs a sampling operation based on the given instruction.
 - `AssertionError`: Asserts that all required components (repair, select_from_failure, validate, and generate) are provided before proceeding with the sampling.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `RejectionSamplingStrategy` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/base.py#L243" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -103,7 +103,7 @@ Simple rejection sampling strategy that just repeats the same call on failure.
 
 **Methods:**
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `select_from_failure` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/base.py#L247" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -122,7 +122,7 @@ Always returns the 0th index.
 - The index of the result that should be selected as `.value`.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `repair` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/base.py#L265" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -143,7 +143,7 @@ Always returns the unedited, last action.
 - The next action component and context to be used for the next generation attempt.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `RepairTemplateStrategy` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/base.py#L287" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -153,7 +153,7 @@ A sampling strategy that adds a repair string to the instruction object.
 
 **Methods:**
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `select_from_failure` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/base.py#L291" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -172,7 +172,7 @@ Always returns the 0th index.
 - The index of the result that should be selected as `.value`.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `repair` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/base.py#L309" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -193,7 +193,7 @@ Adds a description of the requirements that failed to a copy of the original ins
 - The next action component and context to be used for the next generation attempt.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `MultiTurnStrategy` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/base.py#L352" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -203,7 +203,7 @@ Rejection sampling strategy with (agentic) multi-turn repair.
 
 **Methods:**
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `select_from_failure` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/base.py#L356" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -222,7 +222,7 @@ Always returns the last index. The last message from the model will always be re
 - The index of the result that should be selected as `.value`.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `repair` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/base.py#L374" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -242,4 +242,4 @@ Returns a Message with a description of the failed requirements.
 **Returns:**
 - The next action component and context to be used for the next generation attempt.
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />

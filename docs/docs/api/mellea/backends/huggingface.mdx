@@ -17,7 +17,7 @@ The purpose of the Hugginface backend is to provide a setting for implementing e
 
 ## Classes
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `HFAloraCacheInfo` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L84" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -26,7 +26,7 @@ The purpose of the Hugginface backend is to provide a setting for implementing e
 A dataclass for holding some KV cache and associated information.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `LocalHFBackend` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L93" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -40,7 +40,7 @@ This backend is NOT designed for inference scaling on CUDA-enabled hardware.
 
 **Methods:**
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_context` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L189" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -51,7 +51,7 @@ generate_from_context(self, action: Component | CBlock, ctx: Context)
 Generate using the huggingface model.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `processing` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L587" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -62,7 +62,7 @@ processing(self, mot: ModelOutputThunk, chunk: str | GenerateDecoderOnlyOutput, 
 Process the returned chunks or the complete response.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `post_processing` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L605" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -73,7 +73,7 @@ post_processing(self, mot: ModelOutputThunk, conversation: list[dict], _format: 
 Called when generation is done.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_raw` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L670" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -84,7 +84,7 @@ generate_from_raw(self, actions: list[Component | CBlock], ctx: Context) -> list
 Generate using the completions api. Gives the input provided to the model without templating.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `cache_get` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L781" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -95,7 +95,7 @@ cache_get(self, id: str) -> HFAloraCacheInfo | None
 Retrieve from cache.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `cache_put` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L787" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -106,7 +106,7 @@ cache_put(self, id: str, v: HFAloraCacheInfo)
 Put into cache.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `base_model_name` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L865" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -117,7 +117,7 @@ base_model_name(self)
 Returns the base_model_id of the model used by the backend. For example, `granite-3.3-8b-instruct` for `ibm-granite/granite-3.3-8b-instruct`.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `add_adapter` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L869" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -128,7 +128,7 @@ add_adapter(self, adapter: LocalHFAdapter)
 Adds the given adapter to the backend. Must not have been added to a different backend.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `load_adapter` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L892" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -139,7 +139,7 @@ load_adapter(self, adapter_qualified_name: str)
 Loads the given adapter for the backend. Must have previously been added. Do not call when generation requests are happening.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `unload_adapter` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L924" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -150,7 +150,7 @@ unload_adapter(self, adapter_qualified_name: str)
 Unloads the given adapter from the backend.
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `list_adapters` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L939" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -163,7 +163,7 @@ Lists the adapters added via add_adapter().
 :returns: list of adapter names that are currently registered with this backend
 
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `HFProcessRewardModel` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L979" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -173,7 +173,7 @@ A Process Reward Model that works with a huggingface backend.
 
 **Methods:**
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `stepify` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L1018" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -187,4 +187,4 @@ Splits the assistant response into steps to score.
 - `content`: assistant response to score
 - `step_separator`: string on which to separate the content into steps
 
----
+<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
