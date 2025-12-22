@@ -14,7 +14,7 @@ import { SidebarFix } from "/snippets/SidebarFix.mdx";
 
 ## Classes
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `Backend` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/__init__.py#L19" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -25,7 +25,7 @@ An abstract `Backend`.
 
 **Methods:**
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_context` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/__init__.py#L37" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -46,7 +46,7 @@ Generates a model output from a context. May not mutate the context. This must b
 - a tuple of (ModelOutputThunk, Context) where the Context is the new context after the generation has been completed.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_raw` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/__init__.py#L61" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -63,4 +63,4 @@ Generates a model output from the provided input. Does not use context or templa
 - `model_options`: Any model options to upsert into the defaults for this call.
 - `tool_calls`: Always set to false unless supported by backend.
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---

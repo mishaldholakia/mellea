@@ -14,7 +14,7 @@ import { SidebarFix } from "/snippets/SidebarFix.mdx";
 
 ## Functions
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `code_interpreter` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/tools/interpreter.py#L265" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -30,7 +30,7 @@ Executes python code.
 - `code`: The Python code to execute.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `local_code_interpreter` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/tools/interpreter.py#L275" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -45,11 +45,11 @@ Executes python code in the cwd.
 - `code`: The Python code to execute.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ## Classes
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `ExecutionResult` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/tools/interpreter.py#L20" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -71,7 +71,7 @@ TODO\: should we also be trying to pass back the value of the final expression e
 
 **Methods:**
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `to_validationresult_reason` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/tools/interpreter.py#L50" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -84,7 +84,7 @@ Maps an ExecutionResult to a ValidationResult reason.
 TODO\: Downstream use of this method is really hacky. A far better solution is for `ExecutionResult` to implement the `ValidationResult` interface.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `ExecutionEnvironment` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/tools/interpreter.py#L70" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -94,7 +94,7 @@ Abstract environment for executing Python code.
 
 **Methods:**
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `execute` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/tools/interpreter.py#L82" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -105,7 +105,7 @@ execute(self, code: str, timeout: int) -> ExecutionResult
 Execute code and return result.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `StaticAnalysisEnvironment` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/tools/interpreter.py#L86" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -115,7 +115,7 @@ Safe environment that validates but does not execute code.
 
 **Methods:**
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `execute` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/tools/interpreter.py#L89" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -126,7 +126,7 @@ execute(self, code: str, timeout: int) -> ExecutionResult
 Validate code syntax and imports without executing.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `UnsafeEnvironment` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/tools/interpreter.py#L124" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -136,7 +136,7 @@ Unsafe environment that executes code directly with subprocess.
 
 **Methods:**
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `execute` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/tools/interpreter.py#L127" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -147,7 +147,7 @@ execute(self, code: str, timeout: int) -> ExecutionResult
 Execute code with subprocess after checking imports.
 
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `LLMSandboxEnvironment` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/tools/interpreter.py#L184" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -157,7 +157,7 @@ Environment using llm-sandbox for secure Docker-based execution.
 
 **Methods:**
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `execute` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/tools/interpreter.py#L187" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -167,4 +167,4 @@ execute(self, code: str, timeout: int) -> ExecutionResult
 
 Execute code using llm-sandbox.
 
-<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
+---
