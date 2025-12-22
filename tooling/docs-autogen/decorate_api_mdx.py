@@ -87,11 +87,7 @@ FUNC_SPAN = (
 
 SPAN_RE = re.compile(r'\s*<span className="[^"]*rounded-full[^"]*">.*?</span>\s*')
 LABEL_RE = re.compile(r'^\[(class|func|Class|funct)\]\s+')
-# DIVIDER_LINE = '---'
-DIVIDER_LINE = (
-  '<hr className="not-prose" '
-  'style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />'
-)
+DIVIDER_LINE = '---'
 
 
 def pick_kind(name: str, level: int, current_section: str | None) -> str | None:
@@ -177,11 +173,8 @@ def decorate_mdx_body(full_text: str) -> str:
     def last_non_empty_is_divider_local() -> bool:
         for ln in reversed(out):
             if ln.strip() != "":
-                return is_divider_line(ln)
+                return ln.strip() == DIVIDER_LINE
         return False
-    def is_divider_line(s: str) -> bool:
-        t = s.strip()
-        return t == "---" or t.startswith("<hr")
     def append_divider():
         # Ensure previous line is blank to prevent Setext headings.
         if out and out[-1].strip() != "":
