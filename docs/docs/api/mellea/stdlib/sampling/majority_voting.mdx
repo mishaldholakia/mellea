@@ -14,7 +14,7 @@ import { SidebarFix } from "/snippets/SidebarFix.mdx";
 
 ## Classes
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `BaseMBRDSampling` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/majority_voting.py#L16" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -25,7 +25,7 @@ Abstract Minimum Bayes Risk Decoding (MBRD) Sampling Strategy.
 
 **Methods:**
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `compare_strings` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/majority_voting.py#L53" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -36,7 +36,7 @@ compare_strings(self, ref: str, pred: str) -> float
 This method is the abstract method for MBRD similarity metric.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `maybe_apply_weighted` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/majority_voting.py#L56" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -47,7 +47,7 @@ maybe_apply_weighted(self, scr: np.ndarray)
 Applies weights if self.weighted is True. Not Implemented.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `sample` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/majority_voting.py#L65" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -72,7 +72,7 @@ Samples using majority voting.
 - A result object indicating the success or failure of the sampling process.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `MajorityVotingStrategyForMath` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/majority_voting.py#L158" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -82,7 +82,7 @@ MajorityVoting Sampling Strategy for Math Expressions.
 
 **Methods:**
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `compare_strings` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/majority_voting.py#L219" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -93,7 +93,7 @@ compare_strings(self, ref: str, pred: str) -> float
 Helper function to compare strings using the math extraction metrics.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `MBRDRougeLStrategy` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/majority_voting.py#L244" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -103,7 +103,7 @@ Sampling Strategy that uses RougeL to compute symbol-level distances for majorit
 
 **Methods:**
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `compare_strings` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/sampling/majority_voting.py#L283" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -113,4 +113,4 @@ compare_strings(self, ref: str, pred: str) -> float
 
 Helper function to compare strings using the math extraction metrics.
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />

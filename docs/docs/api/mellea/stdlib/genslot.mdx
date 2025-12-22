@@ -14,7 +14,7 @@ import { SidebarFix } from "/snippets/SidebarFix.mdx";
 
 ## Functions
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `create_response_format` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L37" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -33,7 +33,7 @@ Create a Pydantic response format class for a given function.
 - A Pydantic model class that inherits from FunctionResponse[T]
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `describe_function` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L151" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -51,7 +51,7 @@ Generates a FunctionDict given a function.
 - Function dict of the passed function.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `get_argument` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L167" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -73,7 +73,7 @@ Note: Performs additional formatting for string objects, putting them in quotes.
 - an argument object representing the given parameter.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `bind_function_arguments` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L193" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -93,7 +93,7 @@ Bind arguments to function parameters and return as dictionary.
 - Dictionary mapping parameter names to bound values with defaults applied.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generative` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L696" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -217,11 +217,11 @@ of the arguments / outputs (not their python objects).
 ```
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ## Classes
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `FunctionResponse` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L31" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -230,7 +230,7 @@ of the arguments / outputs (not their python objects).
 Generic base class for function response formats.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `FunctionDict` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L60" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -238,7 +238,7 @@ Generic base class for function response formats.
 Return Type for a Function Component.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `ArgumentDict` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L68" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -246,7 +246,7 @@ Return Type for a Function Component.
 Return Type for a Argument Component.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `Argument` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L76" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -254,11 +254,11 @@ Return Type for a Argument Component.
 An Argument Component.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `Arguments` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L93" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `ArgPreconditionRequirement` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L109" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -266,7 +266,7 @@ An Argument Component.
 Specific requirement with template for validating precondition requirements against a set of args.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `PreconditionException` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L126" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -274,7 +274,7 @@ Specific requirement with template for validating precondition requirements agai
 Exception raised when validation fails for a generative slot's arguments.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `Function` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L142" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -282,7 +282,7 @@ Exception raised when validation fails for a generative slot's arguments.
 A Function Component.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `ExtractedArgs` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L223" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -292,7 +292,7 @@ Used to extract the mellea args and original function args. See @generative deco
 These args must match those allowed by any overload of GenerativeSlot.__call__.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `GenerativeSlot` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L257" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -302,7 +302,7 @@ A generative slot component.
 
 **Methods:**
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `extract_args_and_kwargs` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L294" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -320,7 +320,7 @@ Takes a mix of args and kwargs for both the generative slot and the original fun
 - `TypeError`: if any of the original function's parameters were passed as positional args
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `parts` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L383" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -331,7 +331,7 @@ parts(self)
 Not implemented.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `format_for_llm` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L387" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -342,15 +342,15 @@ format_for_llm(self) -> TemplateRepresentation
 Formats the instruction for Formatter use.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `SyncGenerativeSlot` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L407" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `AsyncGenerativeSlot` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/genslot.py#L543" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 
 A generative slot component that generates asynchronously and returns a coroutine.
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
