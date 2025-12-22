@@ -14,7 +14,7 @@ import { SidebarFix } from "/snippets/SidebarFix.mdx";
 
 ## Classes
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `Formatter` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/formatter.py#L26" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -25,7 +25,7 @@ A Formatter converts `Component`s into strings and parses `ModelOutputThunk`s in
 
 **Methods:**
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `print` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/formatter.py#L30" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -36,7 +36,7 @@ print(self, c: Component | CBlock) -> str
 Renders a component for input to a model.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `parse` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/formatter.py#L35" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -49,7 +49,7 @@ Parses the output from a model and sets the parsed_repr of the result ModelOutpu
 Returns the ModelOutputThunk that was passed in.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `to_chat_messages` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/formatter.py#L44" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -60,7 +60,7 @@ to_chat_messages(self, cs: list[Component | CBlock]) -> list[Message]
 Helper method that converts a linearized chat history into a list of messages. The purpose of this helper is to prepare a sequence of Messages for input to a chat endpoint.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `TemplateFormatter` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/formatter.py#L82" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -70,7 +70,7 @@ Formatter that uses jinja2 templates.
 
 **Methods:**
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `parse` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/formatter.py#L107" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -81,7 +81,7 @@ parse(self, source_component: Component | CBlock, result: ModelOutputThunk) -> M
 Parses the output and updates the result's parsed_repr.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `print` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/formatter.py#L234" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -92,7 +92,7 @@ print(self, c: Component | CBlock) -> str
 Uses a jinja2 template to pretty-print components.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `FormatterBackend` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/formatter.py#L410" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -108,4 +108,4 @@ The `mellea` library supports these legacy models primarily through prompt engin
 A `FormatterBackend` is a backend that uses hand-engineered prompts for rendering generative programming primitives to a model and parsing responses from the model back into `mellea`.
 By default, a `FormatterBackend` uses jinja2 templates for pretty-printing, and relies on the user's ad-hoc logic for parsing.
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />

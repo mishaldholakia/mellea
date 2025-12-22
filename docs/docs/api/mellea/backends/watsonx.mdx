@@ -14,7 +14,7 @@ import { SidebarFix } from "/snippets/SidebarFix.mdx";
 
 ## Classes
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `WatsonxAIBackend` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/watsonx.py#L51" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -25,7 +25,7 @@ A generic backend class for watsonx SDK.
 
 **Methods:**
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `filter_chat_completions_kwargs` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/watsonx.py#L173" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -36,7 +36,7 @@ filter_chat_completions_kwargs(self, model_options: dict) -> dict
 Filter kwargs to only include valid watsonx chat.completions.create parameters.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_context` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/watsonx.py#L239" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -47,7 +47,7 @@ generate_from_context(self, action: Component | CBlock, ctx: Context)
 See `generate_from_chat_context`.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_chat_context` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/watsonx.py#L261" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -58,7 +58,7 @@ generate_from_chat_context(self, action: Component | CBlock, ctx: Context) -> Mo
 Generates a new completion from the provided Context using this backend's `Formatter`.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `processing` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/watsonx.py#L387" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -71,7 +71,7 @@ Called during generation to add information from a single ChatCompletion or Chat
 For OpenAI-like APIs, tool call parsing is handled in the post processing step.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `post_processing` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/watsonx.py#L430" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -82,7 +82,7 @@ post_processing(self, mot: ModelOutputThunk, conversation: list[dict], tools: di
 Called when generation is done.
 
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
 
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_raw` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/watsonx.py#L483" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -92,4 +92,4 @@ generate_from_raw(self, actions: list[Component | CBlock], ctx: Context) -> list
 
 Generates a completion text. Gives the input provided to the model without templating.
 
-<hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+<hr className="not-prose" style={{ marginTop: "1em", marginBottom: "1em", borderTop: "1px solid currentColor", opacity: 0.15 }} />
