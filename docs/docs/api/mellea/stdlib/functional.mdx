@@ -14,7 +14,7 @@ import { SidebarFix } from "/snippets/SidebarFix.mdx";
 
 ## Functions
 
----
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `act` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/functional.py#L67" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
@@ -41,7 +41,7 @@ Runs a generic action, and adds both the action and the result to the context.
 - A (ModelOutputThunk, Context) if `return_sampling_results` is `False`, else returns a `SamplingResult`.
 
 
----
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `instruct` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/functional.py#L156" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -73,7 +73,7 @@ Generates from an instruction.
 - A (ModelOutputThunk, Context) if `return_sampling_results` is `False`, else returns a `SamplingResult`.
 
 
----
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `chat` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/functional.py#L227" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -85,7 +85,7 @@ chat(content: str, context: Context, backend: Backend) -> tuple[Message, Context
 Sends a simple chat message and returns the response. Adds both messages to the Context.
 
 
----
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `validate` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/functional.py#L264" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -97,7 +97,7 @@ validate(reqs: Requirement | list[Requirement], context: Context, backend: Backe
 Validates a set of requirements over the output (if provided) or the current context (if the output is not provided).
 
 
----
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `query` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/functional.py#L296" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -121,7 +121,7 @@ Query method for retrieving information from an object.
 - The result of the query as processed by the backend.
 
 
----
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `transform` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/functional.py#L338" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -146,7 +146,7 @@ Transform method for creating a new object with the transformation applied.
 - of the function called, usually the type of the object passed in.
 
 
----
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `aact` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/functional.py#L451" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -173,7 +173,7 @@ Asynchronous version of .act; runs a generic action, and adds both the action an
 - A (ModelOutputThunk, Context) if `return_sampling_results` is `False`, else returns a `SamplingResult`.
 
 
----
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `ainstruct` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/functional.py#L594" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -205,7 +205,7 @@ Generates from an instruction.
 - A (ModelOutputThunk, Context) if `return_sampling_results` is `False`, else returns a `SamplingResult`.
 
 
----
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `achat` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/functional.py#L665" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -217,7 +217,7 @@ achat(content: str, context: Context, backend: Backend) -> tuple[Message, Contex
 Sends a simple chat message and returns the response. Adds both messages to the Context.
 
 
----
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `avalidate` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/functional.py#L702" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -229,7 +229,7 @@ avalidate(reqs: Requirement | list[Requirement], context: Context, backend: Back
 Asynchronous version of .validate; validates a set of requirements over the output (if provided) or the current context (if the output is not provided).
 
 
----
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `aquery` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/functional.py#L759" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -253,7 +253,7 @@ Query method for retrieving information from an object.
 - The result of the query as processed by the backend.
 
 
----
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
 ### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `atransform` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/functional.py#L801" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
@@ -277,4 +277,4 @@ Transform method for creating a new object with the transformation applied.
 - the return type will be always be ModelOutputThunk. If a tool was called, the return type will be the return type
 - of the function called, usually the type of the object passed in.
 
----
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
