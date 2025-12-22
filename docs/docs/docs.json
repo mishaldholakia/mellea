@@ -207,6 +207,10 @@
         "href": "https://github.com/generative-computing/mellea/discussions"
       },
       {
+        "label": "Contribution Guide",
+        "href": "/core-concept/contribution-guide"      
+      },
+      {
         "label": "Support",
         "href": "https://github.com/generative-computing/mellea/issues"
       }
