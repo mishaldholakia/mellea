@@ -175,9 +175,11 @@ def decorate_mdx_body(full_text: str) -> str:
     def last_non_empty_is_divider_local() -> bool:
         for ln in reversed(out):
             if ln.strip() != "":
-                return ln.strip() == DIVIDER_LINE
+                return is_divider_line(ln)
         return False
-
+    def is_divider_line(s: str) -> bool:
+        t = s.strip()
+        return t == "---" or t.startswith("<hr")
     def append_divider():
         # Ensure previous line is blank to prevent Setext headings.
         if out and out[-1].strip() != "":
