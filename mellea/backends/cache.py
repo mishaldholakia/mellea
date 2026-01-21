@@ -5,7 +5,7 @@ from collections import OrderedDict
 from typing import Any
 
 
-class Cache(abc.ABC):
+class CacheMishal(abc.ABC):
     """A Cache for storing model state (e.g., kv cache Mishal)."""
 
     # Whenever PEP 695 generics are supported by mypy, we should use them here.
