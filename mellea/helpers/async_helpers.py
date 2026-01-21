@@ -8,7 +8,7 @@ from typing import Any, TypeVar
 from mellea.stdlib.base import ModelOutputThunk
 
 
-async def send_to_queue_mishal(
+async def send_to_queue(
     co: Coroutine[Any, Any, AsyncIterator | Any] | AsyncIterator, aqueue: asyncio.Queue
 ) -> None:
     """Processes the output of an async chat request by sending the output to an async queue."""
