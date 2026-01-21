@@ -1,557 +1,423 @@
-#!/usr/bin/env python3
-"""
-generate-ast.py (full, merged, with move)
-
-What this does:
-  1) Runs mdxify for PACKAGES (mellea, cli) to generate MDX into a STAGING folder:
-        <repo-root>/docs/api/<pkg>/...
-  2) Reorganizes flat mdxify output into nested folders
-  3) Renames __init__.mdx -> <foldername>.mdx (dedupes if identical)
-  4) Updates frontmatter (title/sidebarTitle/description) + removes empty MDX files
-  5) Moves the generated API docs to your Mintlify docs root:
-        <mintlify-docs-root>/api
-     - If <mintlify-docs-root>/api already exists, it is deleted first.
-  6) Builds the Mintlify "API Reference" nav from the *moved* files
-  7) MERGES that nav into an existing docs.json by replacing ONLY:
-        { "tab": "API Reference", ... }
-
-CLI flags:
-  --docs-json   Path to docs.json to update (recommended for CI)
-  --docs-root   Mintlify docs root (folder that contains docs.json, api/, snippets/, etc.)
-                If omitted, defaults to parent folder of --docs-json.
-
-Usage:
-  python3 generate-ast.py \
-    --docs-json docs/docs/docs.json \
-    --docs-root docs/docs
-
-If your docs.json is at .../docs/docs.json, you can omit --docs-root.
-"""
-
 import os
 import sys
 import json
 import glob
 import re
 import subprocess
-import argparse
-import shutil
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Dict, Any, List, Optional, Tuple
 
-NAV_TAB = "API Reference"
+# -----------------------------
+# Configuration
+# -----------------------------
+# Repo root = directory that contains top-level "mellea/" and "cli/" folders
+REPO_ROOT = Path(__file__).resolve().parents[0]
 
-# Repo root = folder containing this script
-REPO_ROOT = Path(__file__).resolve().parents[2]  # repo root (e.g., .../mellea)
+# Where to write MDX files (Mintlify docs root usually has docs/docs/; you can point docs_root there)
+DOCS_ROOT = REPO_ROOT / "docs"  # adjust if your mintlify root differs
+OUTPUT_BASE_DIR = DOCS_ROOT / "api"
 
-# Staging location for mdxify output (kept as-is so your local workflow still works)
-STAGING_DOCS_ROOT = REPO_ROOT / "docs"
-STAGING_API_DIR = STAGING_DOCS_ROOT / "api"
-
-# Only focus on these two packages at repo root
+# Only focus on top-level packages:
 PACKAGES = ["mellea", "cli"]
 
+NAV_ANCHOR = "API Reference"
+NAV_OUTPUT_FILE = REPO_ROOT / "docs-generated.json"
+
+# mdxify module name (python -m mdxify ...)
+MDXIFY_MODULE = "mdxify"
 
 # -----------------------------
 # Helpers
 # -----------------------------
+def sh(cmd: List[str], *, env: Optional[Dict[str, str]] = None) -> None:
+    print("   $ " + " ".join(cmd))
+    subprocess.run(cmd, check=True, text=True, env=env)
+
 def yaml_quote(value: str) -> str:
+    """
+    Quote a YAML scalar safely using double quotes.
+    """
     if value is None:
         return '""'
-    v = value.replace("\\", "\\\\").replace('"', '\\"')
-    v = v.replace("\n", "\\n")
-    return f'"{v}"'
+    s = str(value)
+    s = s.replace("\\", "\\\\").replace('"', '\\"')
+    s = s.replace("\t", "\\t").replace("\r", "\\r").replace("\n", "\\n")
+    return f'"{s}"'
 
-
-def is_meaningful_body_line(line: str) -> bool:
-    stripped = line.strip()
-    if not stripped:
-        return False
-    if stripped.startswith("<!--") and stripped.endswith("-->"):
-        return False
-    if stripped.startswith("#"):
-        return False
-    return True
-
-
-def strip_frontmatter(lines: List[str]) -> List[str]:
-    if lines and lines[0].strip() == "---":
-        try:
-            end_idx = next(i for i in range(1, len(lines)) if lines[i].strip() == "---")
-            return lines[end_idx + 1 :]
-        except StopIteration:
-            return []
-    return lines
-
-
-def safe_read_text(path: Path) -> str:
-    return path.read_text(encoding="utf-8")
-
-
-def safe_write_text(path: Path, content: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(content, encoding="utf-8")
-
-
-def find_docs_json(cli_path: Optional[str]) -> Path:
-    if cli_path:
-        p = Path(cli_path)
-        if not p.is_absolute():
-            p = (REPO_ROOT / p).resolve()
-        if not p.exists():
-            raise FileNotFoundError(f"--docs-json path not found: {p}")
-        return p
-
-    candidates = [
-        REPO_ROOT / "docs.json",
-        REPO_ROOT / "docs" / "docs.json",
-        REPO_ROOT / "docs" / "docs" / "docs.json",
-    ]
-    for c in candidates:
-        if c.exists():
-            return c
-
-    raise FileNotFoundError(
-        "Could not locate docs.json. Pass --docs-json explicitly, e.g. "
-        "--docs-json docs/docs/docs.json"
-    )
-
-
-def merge_api_reference_into_docs_json(docs_json_path: Path, api_tab_obj: Dict[str, Any]) -> None:
-    data = json.loads(docs_json_path.read_text(encoding="utf-8"))
-    nav = data.get("navigation") or {}
-    tabs = nav.get("tabs") or []
-
-    if not isinstance(tabs, list) or not tabs:
-        raise RuntimeError("docs.json has no navigation.tabs (or it's empty)")
-
-    replaced = False
-    for i, tab in enumerate(tabs):
-        if isinstance(tab, dict) and tab.get("tab") == NAV_TAB:
-            tabs[i] = api_tab_obj
-            replaced = True
-            break
-
-    if not replaced:
-        raise RuntimeError(f'No tab named "{NAV_TAB}" found in docs.json')
-
-    data["navigation"] = nav
-    nav["tabs"] = tabs
-    docs_json_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
-    print(f"✅ Merged API Reference tab into: {docs_json_path}")
-
-
-# -----------------------------
-# Step 1: Environment setup
-# -----------------------------
-def setup_env() -> None:
-    STAGING_API_DIR.mkdir(parents=True, exist_ok=True)
-
-    # Ensure Python can import `mellea` and `cli` from repo root
-    os.environ["PYTHONPATH"] = str(REPO_ROOT)
-
-    print(f"Setting PYTHONPATH to: {os.environ['PYTHONPATH']}")
-    print(f"Staging API output: {STAGING_API_DIR}")
-    print("-" * 30)
-
-
-# -----------------------------
-# Step 2: Run mdxify (generation only)
-# -----------------------------
-def run_mdxify_generation(package_name: str) -> None:
-    output_dir = STAGING_API_DIR / package_name
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    print(f"➡️ Generating documentation for: {package_name} into {output_dir}")
-
-    cmd = [
-        sys.executable,
-        "-m",
-        "mdxify",
-        package_name,
-        "--output-dir",
-        str(output_dir),
-        "--root-module",
-        package_name,
-        "--all",
-        "--no-update-nav",
-    ]
-
+def read_frontmatter(lines: List[str]) -> Tuple[Optional[Tuple[int, int]], Dict[str, str]]:
+    """
+    Returns ((start_idx, end_idx), kv) where end_idx is index of closing '---' line.
+    If no frontmatter, returns (None, {}).
+    """
+    if not lines or lines[0].strip() != "---":
+        return None, {}
     try:
-        subprocess.run(cmd, check=True, text=True)
-        print(f"✅ Successfully generated docs for {package_name}")
-    except subprocess.CalledProcessError as e:
-        print(f"❌ Error generating docs for {package_name}: {e}")
-        sys.exit(1)
+        end = next(i for i in range(1, len(lines)) if lines[i].strip() == "---")
+    except StopIteration:
+        return None, {}
+    kv: Dict[str, str] = {}
+    for line in lines[1:end]:
+        if ":" in line:
+            k, v = line.split(":", 1)
+            kv[k.strip()] = v.strip()
+    return (0, end), kv
 
+def write_frontmatter(lines: List[str], fm_range: Optional[Tuple[int, int]], new_kv: Dict[str, str]) -> List[str]:
+    """
+    Replace or add frontmatter. Preserves body exactly.
+    """
+    body_start = 0
+    if fm_range:
+        _, end = fm_range
+        body_start = end + 1
 
-# -----------------------------
-# Step 3: Reorganize mdxify flat output -> nested folders
-# -----------------------------
-def reorganize_to_nested_structure() -> None:
-    print("-" * 30)
-    print("📁 Reorganizing MDX files into nested folder structure...")
+    body = lines[body_start:]
 
-    all_mdx = glob.glob(str(STAGING_API_DIR / "**" / "*.mdx"), recursive=True)
+    fm_lines = ["---"]
+    # Only set these keys; keep others if they exist in original frontmatter
+    # We'll rebuild from new_kv entirely (callers can merge if desired).
+    for k, v in new_kv.items():
+        fm_lines.append(f"{k}: {v}")
+    fm_lines.append("---")
 
-    for old in all_mdx:
-        old_path = Path(old)
+    # Ensure a blank line after frontmatter for MDX readability
+    return fm_lines + [""] + body
 
-        # Expect: docs/api/<pkg>/<filename>.mdx
-        pkg = old_path.parent.name
-        parent_dir = old_path.parent
-
-        if pkg not in PACKAGES:
-            continue
-
-        # Only reorganize files directly under docs/api/<pkg> (flat)
-        if parent_dir != (STAGING_API_DIR / pkg):
-            continue
-
-        base = old_path.stem
-        prefix = f"{pkg}-"
-        if not base.startswith(prefix):
-            continue
-
-        module_path_raw = base[len(prefix) :]
-        if not module_path_raw:
-            continue
-
-        parts = module_path_raw.split("-")
-        new_dir = STAGING_API_DIR / pkg / Path(*parts[:-1])
-        new_path = new_dir / f"{parts[-1]}.mdx"
-
-        if new_path.resolve() == old_path.resolve():
-            continue
-
-        new_dir.mkdir(parents=True, exist_ok=True)
-        print(f"   Moving {old_path} -> {new_path}")
-        old_path.replace(new_path)
-
-    print("✅ Folder reorganization complete.")
-
-
-# -----------------------------
-# Step 3b: Rename __init__.mdx -> <foldername>.mdx
-# -----------------------------
-def rename_init_files_to_parent() -> None:
-    print("-" * 30)
-    print("📛 Renaming __init__.mdx files to folder-name.mdx (dedupe if identical)...")
-
-    init_files = glob.glob(str(STAGING_API_DIR / "**" / "__init__.mdx"), recursive=True)
-
-    def normalize_text(s: str) -> str:
-        return "\n".join(line.rstrip() for line in s.replace("\r\n", "\n").split("\n")).strip()
-
-    for old in init_files:
-        old_path = Path(old)
-        folder = old_path.parent.name
-        new_path = old_path.parent / f"{folder}.mdx"
-
-        if not new_path.exists():
-            print(f"   Renaming {old_path} -> {new_path}")
-            old_path.rename(new_path)
-            continue
-
-        try:
-            old_txt = normalize_text(safe_read_text(old_path))
-            new_txt = normalize_text(safe_read_text(new_path))
-        except Exception as e:
-            print(f"   ⚠️ Could not compare {old_path} and {new_path}: {e}. Keeping __init__.mdx.")
-            continue
-
-        if old_txt == new_txt:
-            print(f"   🗑️ Duplicate content: removing {old_path} (same as {new_path})")
-            old_path.unlink(missing_ok=True)
-        else:
-            print(f"   ⚠️ Content differs: keeping {old_path} (and leaving existing {new_path})")
-
-    print("✅ __init__.mdx rename/dedupe pass complete.")
-
-
-# -----------------------------
-# Step 4: Update frontmatter (title, sidebarTitle, description)
-# -----------------------------
-def extract_title_and_description(body_lines: List[str]) -> Tuple[Optional[str], Optional[str], Optional[int], Optional[int]]:
-    h1_pattern = re.compile(r"^#\s+`?(.+?)`?\s*$")
-
-    title_value = None
-    h1_idx = None
-    for i, line in enumerate(body_lines):
+def find_first_h1(body_lines: List[str]) -> Optional[str]:
+    h1_pattern = re.compile(r"^#\s+(.+?)\s*$")
+    for line in body_lines:
         m = h1_pattern.match(line.strip())
         if m:
-            title_value = m.group(1).strip("`").strip()
+            return m.group(1).strip()
+    return None
+
+def find_description(body_lines: List[str]) -> Optional[str]:
+    """
+    Pick a safe description line:
+    - after first H1
+    - first non-empty plain-text line
+    - skip code fences, headings, imports, etc.
+    """
+    h1_idx = None
+    for i, line in enumerate(body_lines):
+        if line.strip().startswith("# "):
             h1_idx = i
             break
+    if h1_idx is None:
+        return None
 
-    if not title_value or h1_idx is None:
-        return None, None, None, None
-
-    desc_value = None
-    desc_idx = None
     for j in range(h1_idx + 1, len(body_lines)):
         s = body_lines[j].strip()
         if not s:
             continue
         if s.startswith("#"):
             break
-        if s.startswith("```"):
+        if s.startswith("```"):  # do not treat code fence as description
             continue
-        desc_value = s
-        desc_idx = j
-        break
-
-    return title_value, desc_value, h1_idx, desc_idx
-
-
-def update_frontmatter_metadata() -> None:
-    print("-" * 30)
-    print("📝 Updating frontmatter title/description/sidebarTitle from content...")
-
-    mdx_files = glob.glob(str(STAGING_API_DIR / "**" / "*.mdx"), recursive=True)
-
-    for p in mdx_files:
-        path = Path(p)
-        text = safe_read_text(path)
-        lines = text.splitlines()
-
-        if not lines or lines[0].strip() != "---":
+        if s.startswith("from ") or s.startswith("import "):  # avoid “description = import line”
             continue
+        # avoid MDX JSX-looking lines
+        if s.startswith("<") and s.endswith(">"):
+            continue
+        return s
+    return None
 
+# -----------------------------
+# Step 1: Prepare dirs + env
+# -----------------------------
+def build_env() -> Dict[str, str]:
+    env = dict(os.environ)
+    # Ensure repo root is on PYTHONPATH so `import mellea` and `import cli` work in CI
+    env["PYTHONPATH"] = str(REPO_ROOT)
+    return env
+
+def ensure_dirs() -> None:
+    OUTPUT_BASE_DIR.mkdir(parents=True, exist_ok=True)
+
+# -----------------------------
+# Step 2: Run mdxify
+# -----------------------------
+def run_mdxify_generation(package_name: str) -> None:
+    out_dir = OUTPUT_BASE_DIR / package_name
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    print(f"➡️ Generating docs for: {package_name} -> {out_dir}")
+    env = build_env()
+
+    cmd = [
+        sys.executable, "-m", MDXIFY_MODULE,
+        package_name,
+        "--output-dir", str(out_dir),
+        "--root-module", package_name,
+        "--all",
+        "--no-update-nav",
+        "--with-editable",  # IMPORTANT for CI/source checkouts
+    ]
+
+    try:
+        sh(cmd, env=env)
+        print(f"✅ mdxify ok for {package_name}")
+    except subprocess.CalledProcessError as e:
+        print(f"❌ mdxify failed for {package_name} (exit {e.returncode})")
+        raise
+
+# -----------------------------
+# Step 3: Reorganize mdxify flat output into nested folders
+# -----------------------------
+def reorganize_to_nested_structure() -> None:
+    print("📁 Reorganizing MDX files into nested structure...")
+
+    all_mdx_files = glob.glob(str(OUTPUT_BASE_DIR / "**" / "*.mdx"), recursive=True)
+
+    for old_path_str in all_mdx_files:
+        old_path = Path(old_path_str)
+
+        # expected: docs/api/<pkg>/<flatname>.mdx
         try:
-            end_idx = next(i for i in range(1, len(lines)) if lines[i].strip() == "---")
-        except StopIteration:
+            rel = old_path.relative_to(OUTPUT_BASE_DIR)
+        except ValueError:
             continue
 
-        front_lines = lines[1:end_idx]
-        body_lines = lines[end_idx + 1 :]
-
-        title_value, desc_value, h1_idx, desc_idx = extract_title_and_description(body_lines)
-        if not title_value:
+        if len(rel.parts) < 2:
             continue
 
-        preserved = []
-        for line in front_lines:
-            k = line.strip()
-            if k.startswith("title:") or k.startswith("sidebarTitle:") or k.startswith("description:"):
-                continue
-            preserved.append(line)
+        top_pkg = rel.parts[0]
+        if top_pkg not in PACKAGES:
+            continue
 
-        cleaned_body: List[str] = []
-        for idx, line in enumerate(body_lines):
-            if h1_idx is not None and idx == h1_idx:
-                continue
-            if desc_idx is not None and idx == desc_idx:
-                continue
-            cleaned_body.append(line)
+        filename = rel.parts[-1]
+        stem = filename.removesuffix(".mdx")
 
-        new_front = ["---"]
-        new_front.append(f"title: {yaml_quote(title_value)}")
-        new_front.append(f"sidebarTitle: {yaml_quote(title_value)}")
-        if desc_value:
-            new_front.append(f"description: {yaml_quote(desc_value)}")
-        new_front.extend(preserved)
-        new_front.append("---")
+        # mdxify naming: "<pkg>-a-b-c.mdx" for module path pkg.a.b.c
+        prefix = f"{top_pkg}-"
+        if not stem.startswith(prefix):
+            continue
 
-        new_text = "\n".join(new_front + cleaned_body).rstrip() + "\n"
-        safe_write_text(path, new_text)
+        remainder = stem[len(prefix):]
+        if not remainder:
+            # root module file, keep as <pkg>.mdx where it is
+            continue
+
+        module_parts = remainder.split("-")
+        new_dir = OUTPUT_BASE_DIR / top_pkg / Path(*module_parts[:-1])
+        new_path = new_dir / f"{module_parts[-1]}.mdx"
+
+        if new_path.resolve() == old_path.resolve():
+            continue
+
+        new_dir.mkdir(parents=True, exist_ok=True)
+        print(f"   Move {old_path} -> {new_path}")
+        old_path.replace(new_path)
+
+    print("✅ Reorg complete.")
+
+# -----------------------------
+# Step 3b: Rename __init__.mdx to folder-name.mdx (and dedupe)
+# -----------------------------
+def rename_init_files_to_parent() -> None:
+    print("📛 Renaming __init__.mdx -> <folder>.mdx ...")
+
+    init_files = glob.glob(str(OUTPUT_BASE_DIR / "**" / "__init__.mdx"), recursive=True)
+
+    for old_path_str in init_files:
+        old_path = Path(old_path_str)
+        folder = old_path.parent.name
+        new_path = old_path.parent / f"{folder}.mdx"
+
+        if new_path.exists():
+            # If the target exists already, remove __init__.mdx (keeps canonical file)
+            print(f"   ⚠️ {new_path} exists; removing {old_path}")
+            old_path.unlink()
+            continue
+
+        print(f"   Rename {old_path} -> {new_path}")
+        old_path.rename(new_path)
+
+    print("✅ __init__ rename complete.")
+
+# -----------------------------
+# Step 4: Update frontmatter safely (no body deletion)
+# -----------------------------
+def update_frontmatter_metadata() -> None:
+    print("📝 Updating frontmatter safely (quoted YAML, keep body intact)...")
+
+    mdx_files = glob.glob(str(OUTPUT_BASE_DIR / "**" / "*.mdx"), recursive=True)
+
+    for path_str in mdx_files:
+        path = Path(path_str)
+        lines = path.read_text(encoding="utf-8").splitlines()
+
+        fm_range, fm_kv = read_frontmatter(lines)
+
+        body_start = (fm_range[1] + 1) if fm_range else 0
+        body_lines = lines[body_start:]
+
+        # Title: prefer existing frontmatter title if present, else first H1, else file stem
+        raw_title = None
+        if "title" in fm_kv and fm_kv["title"].strip():
+            # strip quotes if present
+            raw_title = fm_kv["title"].strip().strip('"').strip("'")
+        else:
+            h1 = find_first_h1(body_lines)
+            raw_title = h1.strip("`") if h1 else path.stem
+
+        raw_desc = find_description(body_lines)
+        if not raw_desc:
+            # fallback: keep existing description if present
+            if "description" in fm_kv and fm_kv["description"].strip():
+                raw_desc = fm_kv["description"].strip().strip('"').strip("'")
+
+        new_fm: Dict[str, str] = {}
+        new_fm["title"] = yaml_quote(raw_title)
+        new_fm["sidebarTitle"] = yaml_quote(raw_title)
+        if raw_desc:
+            new_fm["description"] = yaml_quote(raw_desc)
+
+        # Preserve any other existing frontmatter keys (except ones we set)
+        for k, v in fm_kv.items():
+            if k in ("title", "sidebarTitle", "description"):
+                continue
+            # Keep as-is (already YAML-ish)
+            new_fm[k] = v
+
+        new_lines = write_frontmatter(lines, fm_range, new_fm)
+        path.write_text("\n".join(new_lines) + "\n", encoding="utf-8")
 
     print("✅ Frontmatter update complete.")
 
-
 # -----------------------------
-# Step 4b: Remove empty/no-content MDX
+# Step 4b: Remove empty MDX files (optional)
 # -----------------------------
 def remove_empty_mdx_files() -> None:
-    print("-" * 30)
     print("🧹 Removing empty/no-content MDX files...")
 
-    mdx_files = glob.glob(str(STAGING_API_DIR / "**" / "*.mdx"), recursive=True)
+    mdx_files = glob.glob(str(OUTPUT_BASE_DIR / "**" / "*.mdx"), recursive=True)
     removed = 0
 
-    for p in mdx_files:
-        path = Path(p)
-        lines = safe_read_text(path).splitlines()
-        body = strip_frontmatter(lines)
+    for path_str in mdx_files:
+        path = Path(path_str)
+        lines = path.read_text(encoding="utf-8").splitlines()
 
-        meaningful = any(is_meaningful_body_line(line) for line in body)
+        fm_range, _ = read_frontmatter(lines)
+        body_start = (fm_range[1] + 1) if fm_range else 0
+        body = lines[body_start:]
+
+        meaningful = False
+        in_fence = False
+        for line in body:
+            s = line.strip()
+            if s.startswith("```"):
+                in_fence = not in_fence
+                meaningful = True
+                continue
+            if not s:
+                continue
+            if s.startswith("#"):
+                continue
+            if s.startswith("<!--") and s.endswith("-->"):
+                continue
+            # Anything else counts
+            meaningful = True
+            break
+
         if not meaningful:
             print(f"   🗑️ Removing empty file: {path}")
-            path.unlink(missing_ok=True)
+            path.unlink()
             removed += 1
 
     print(f"✅ Removed {removed} empty files.")
 
-
 # -----------------------------
-# Step 5: Move staging api -> target docs root
+# Step 5: Build navigation JSON (NO .mdx)
 # -----------------------------
-def move_api_to_docs_root(target_docs_root: Path) -> Path:
-    """
-    Move <repo>/docs/api -> <target_docs_root>/api
-    If <target_docs_root>/api exists, delete it first.
+def build_navigation_structure() -> None:
+    print("🛠️ Building navigation JSON (no .mdx in paths)...")
 
-    Returns the final API dir path.
-    """
-    target_docs_root = target_docs_root.resolve()
-    target_api_dir = target_docs_root / "api"
+    all_mdx_files = glob.glob(str(OUTPUT_BASE_DIR / "**" / "*.mdx"), recursive=True)
 
-    print("-" * 30)
-    print(f"📦 Moving generated API docs to: {target_api_dir}")
+    # We want a nested tree under:
+    # api/<pkg>/<...>/<file>
+    package_tree: Dict[str, Any] = {pkg: {} for pkg in PACKAGES}
 
-    if not STAGING_API_DIR.exists():
-        raise RuntimeError(f"Staging API dir not found: {STAGING_API_DIR}")
+    for full_path_str in all_mdx_files:
+        full_path = Path(full_path_str)
+        rel = full_path.relative_to(DOCS_ROOT)  # e.g. api/mellea/backends/types.mdx
 
-    # Delete existing target api dir
-    if target_api_dir.exists():
-        print(f"   🧹 Deleting existing target api dir: {target_api_dir}")
-        shutil.rmtree(target_api_dir)
-
-    target_docs_root.mkdir(parents=True, exist_ok=True)
-
-    # Move (rename) staging api into target
-    shutil.move(str(STAGING_API_DIR), str(target_api_dir))
-
-    # Optional: remove empty staging docs folder so docs/api does not linger
-    try:
-        if STAGING_DOCS_ROOT.exists() and not any(STAGING_DOCS_ROOT.iterdir()):
-            print(f"🧹 Removing empty staging docs folder: {STAGING_DOCS_ROOT}")
-            shutil.rmtree(STAGING_DOCS_ROOT)
-    except Exception as e:
-        print(f"⚠️ Could not clean staging docs folder: {e}")
-
-    print("✅ Move complete.")
-    return target_api_dir
-
-
-# -----------------------------
-# Step 6: Build Mintlify navigation from the moved files + merge into docs.json
-# -----------------------------
-def build_tree_from_paths(paths: List[str]) -> Dict[str, Any]:
-    root: Dict[str, Any] = {}
-
-    def insert(node: Dict[str, Any], parts: List[str], page_path: str) -> None:
-        if not parts:
-            node.setdefault("__pages__", []).append(page_path)
-            return
-        k = parts[0]
-        node.setdefault(k, {})
-        insert(node[k], parts[1:], page_path)
-
-    for p in paths:
-        parts = p.split("/")
-        if len(parts) < 3:
+        # enforce top-level packages only: api/mellea/... or api/cli/...
+        if len(rel.parts) < 3:
             continue
-        sub = parts[2:]  # after api/<pkg>
-        insert(root, sub[:-1], p)
+        if rel.parts[0] != "api":
+            continue
 
-    return root
+        pkg = rel.parts[1]
+        if pkg not in PACKAGES:
+            continue
 
+        # path components after api/<pkg>/
+        subparts = list(rel.parts[2:])
+        if not subparts:
+            continue
 
-def tree_to_mintlify(node: Dict[str, Any], group_name: str) -> Dict[str, Any]:
-    pages: List[Any] = []
+        # remove .mdx suffix from leaf
+        leaf = subparts[-1]
+        if leaf.endswith(".mdx"):
+            subparts[-1] = leaf[:-4]
 
-    file_pages = node.get("__pages__", [])
-    if file_pages:
-        pages.extend(sorted(file_pages))
+        # special: folder index file "<folder>/<folder>.mdx" should be treated as folder index
+        # Here index means: if leaf == parent folder, store as __file of that node
+        def insert(tree: Dict[str, Any], parts: List[str], page: str) -> None:
+            if not parts:
+                tree["__file"] = page
+                return
+            head = parts[0]
+            tree.setdefault(head, {})
+            insert(tree[head], parts[1:], page)
 
-    for k in sorted(x for x in node.keys() if x != "__pages__"):
-        pages.append(tree_to_mintlify(node[k], k))
+        # compute page string like "api/mellea/backends/types" (no .mdx)
+        page_no_ext = "/".join(rel.parts).removesuffix(".mdx")
 
-    return {"group": group_name, "pages": pages}
+        if len(subparts) >= 2 and subparts[-1] == subparts[-2]:
+            # treat as index file for that folder (drop the leaf)
+            insert(package_tree[pkg], subparts[:-1], page_no_ext)
+        else:
+            insert(package_tree[pkg], subparts, page_no_ext)
 
+    def to_mintlify(node: Dict[str, Any], name: str) -> Dict[str, Any]:
+        pages: List[Any] = []
+        if "__file" in node:
+            pages.append(node["__file"])
+        for k in sorted([x for x in node.keys() if x != "__file"]):
+            pages.append(to_mintlify(node[k], k))
+        return {"group": name, "pages": pages}
 
-def collect_pages_under(api_dir: Path, pkg: str, docs_root: Path) -> List[str]:
-    """
-    Return page paths relative to docs_root, WITHOUT .mdx suffix:
-      api/<pkg>/...
-    """
-    base = api_dir / pkg
-    files = glob.glob(str(base / "**" / "*.mdx"), recursive=True)
+    final_pages = [to_mintlify(package_tree[pkg], pkg) for pkg in PACKAGES if package_tree[pkg]]
 
-    out: List[str] = []
-    for f in files:
-        fp = Path(f)
-        rel = fp.relative_to(docs_root)  # api/<pkg>/...
-        out.append(rel.as_posix().removesuffix(".mdx"))
-    return sorted(out)
+    nav = {"tab": NAV_ANCHOR, "pages": final_pages}
 
-
-def build_api_reference_tab_object(api_dir: Path, docs_root: Path) -> Dict[str, Any]:
-    def keep_only_group(p: str, group: str) -> bool:
-        parts = p.split("/")
-        return len(parts) >= 2 and parts[0] == "api" and parts[1] == group
-
-    cli_pages_all = collect_pages_under(api_dir, "cli", docs_root)
-    mellea_pages_all = collect_pages_under(api_dir, "mellea", docs_root)
-
-    cli_pages = [p for p in cli_pages_all if keep_only_group(p, "cli")]
-    mellea_pages = [p for p in mellea_pages_all if keep_only_group(p, "mellea")]
-
-    cli_tree = build_tree_from_paths(cli_pages)
-    mellea_tree = build_tree_from_paths(mellea_pages)
-
-    cli_nav = tree_to_mintlify(cli_tree, "cli")
-    mellea_nav = tree_to_mintlify(mellea_tree, "mellea")
-
-    return {
-        "tab": NAV_TAB,
-        "pages": [
-            {"group": "mellea", "pages": mellea_nav["pages"]},
-            {"group": "cli", "pages": cli_nav["pages"]},
-        ],
-    }
-
-
-def build_and_merge_navigation(docs_json_path: Path, api_dir: Path, docs_root: Path) -> None:
-    print("-" * 30)
-    print("🛠️ Building API Reference navigation and merging into docs.json...")
-    api_tab = build_api_reference_tab_object(api_dir, docs_root)
-    merge_api_reference_into_docs_json(docs_json_path, api_tab)
-
+    NAV_OUTPUT_FILE.write_text(json.dumps(nav, indent=2) + "\n", encoding="utf-8")
+    print(f"📄 Wrote: {NAV_OUTPUT_FILE}")
 
 # -----------------------------
 # Main
 # -----------------------------
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Generate MDX API docs, move to docs root, and merge nav into docs.json")
-    parser.add_argument("--docs-json", help="Path to docs.json to update (recommended for CI).", required=False)
-    parser.add_argument(
-        "--docs-root",
-        help="Mintlify docs root (folder that contains docs.json, api/, snippets/, etc.). "
-             "Defaults to parent directory of --docs-json.",
-        required=False,
-    )
-    args = parser.parse_args()
+if __name__ == "__main__":
+    print("-" * 30)
+    print(f"Repo root: {REPO_ROOT}")
+    print(f"Docs root: {DOCS_ROOT}")
+    print(f"Output:    {OUTPUT_BASE_DIR}")
+    print("-" * 30)
 
-    docs_json_path = find_docs_json(args.docs_json)
-    docs_root = Path(args.docs_root).resolve() if args.docs_root else docs_json_path.parent.resolve()
+    ensure_dirs()
 
-    setup_env()
-
-    # Generate MDX into staging
+    # Generate
     for pkg in PACKAGES:
         run_mdxify_generation(pkg)
 
-    # Restructure + rename init + metadata cleanup in staging
     reorganize_to_nested_structure()
     rename_init_files_to_parent()
     update_frontmatter_metadata()
     remove_empty_mdx_files()
-
-    # Move staging api -> final docs root/api
-    final_api_dir = move_api_to_docs_root(docs_root)
-
-    # Merge nav based on final location
-    build_and_merge_navigation(docs_json_path, final_api_dir, docs_root)
-
-    # Cleanup env
-    if "PYTHONPATH" in os.environ:
-        del os.environ["PYTHONPATH"]
+    build_navigation_structure()
 
     print("-" * 30)
     print("🎉 All tasks complete!")
-
-
-if __name__ == "__main__":
-    main()
