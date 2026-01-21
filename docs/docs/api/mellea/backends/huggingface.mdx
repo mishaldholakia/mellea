@@ -20,7 +20,7 @@ The purpose of the Hugginface backend is to provide a setting for implementing e
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
 
-### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `HFAloraCacheInfo` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L84" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `HFAloraCacheInfo` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/huggingface.py#L84" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 
 A dataclass for holding some KV cache and associated information.
@@ -28,7 +28,7 @@ A dataclass for holding some KV cache and associated information.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `LocalHFBackend` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L93" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `LocalHFBackend` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/huggingface.py#L93" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 
 The LocalHFBackend uses Huggingface's transformers library for inference, and uses a Formatter to convert `Component`s into prompts. This backend also supports Activated LoRAs (ALoras)](https://arxiv.org/pdf/2504.12397).
@@ -44,7 +44,7 @@ This backend is NOT designed for inference scaling on CUDA-enabled hardware.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_context` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L189" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_context` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/huggingface.py#L189" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 generate_from_context(self, action: Component | CBlock, ctx: Context)
@@ -55,7 +55,7 @@ Generate using the huggingface model.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `processing` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L587" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `processing` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/huggingface.py#L587" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 processing(self, mot: ModelOutputThunk, chunk: str | GenerateDecoderOnlyOutput, input_ids)
@@ -66,7 +66,7 @@ Process the returned chunks or the complete response.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `post_processing` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L605" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `post_processing` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/huggingface.py#L605" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 post_processing(self, mot: ModelOutputThunk, conversation: list[dict], _format: type[BaseModelSubclass] | None, tool_calls: bool, tools: dict[str, Callable], seed, input_ids)
@@ -77,7 +77,7 @@ Called when generation is done.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_raw` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L670" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_raw` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/huggingface.py#L670" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 generate_from_raw(self, actions: list[Component | CBlock], ctx: Context) -> list[ModelOutputThunk]
@@ -88,7 +88,7 @@ Generate using the completions api. Gives the input provided to the model withou
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `cache_get` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L781" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `cache_get` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/huggingface.py#L781" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 cache_get(self, id: str) -> HFAloraCacheInfo | None
@@ -99,7 +99,7 @@ Retrieve from cache.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `cache_put` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L787" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `cache_put` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/huggingface.py#L787" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 cache_put(self, id: str, v: HFAloraCacheInfo)
@@ -110,7 +110,7 @@ Put into cache.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `base_model_name` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L865" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `base_model_name` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/huggingface.py#L865" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 base_model_name(self)
@@ -121,7 +121,7 @@ Returns the base_model_id of the model used by the backend. For example, `granit
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `add_adapter` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L869" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `add_adapter` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/huggingface.py#L869" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 add_adapter(self, adapter: LocalHFAdapter)
@@ -132,7 +132,7 @@ Adds the given adapter to the backend. Must not have been added to a different b
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `load_adapter` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L892" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `load_adapter` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/huggingface.py#L892" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 load_adapter(self, adapter_qualified_name: str)
@@ -143,7 +143,7 @@ Loads the given adapter for the backend. Must have previously been added. Do not
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `unload_adapter` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L924" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `unload_adapter` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/huggingface.py#L924" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 unload_adapter(self, adapter_qualified_name: str)
@@ -154,7 +154,7 @@ Unloads the given adapter from the backend.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `list_adapters` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L939" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `list_adapters` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/huggingface.py#L939" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 list_adapters(self) -> list[str]
@@ -167,7 +167,7 @@ Lists the adapters added via add_adapter().
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `HFProcessRewardModel` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L979" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `HFProcessRewardModel` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/huggingface.py#L979" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 
 A Process Reward Model that works with a huggingface backend.
@@ -179,7 +179,7 @@ A Process Reward Model that works with a huggingface backend.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `stepify` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/huggingface.py#L1018" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `stepify` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/huggingface.py#L1018" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 stepify(self, content: str, step_separator: str) -> list[str]
