@@ -17,7 +17,7 @@ import { SidebarFix } from "/snippets/SidebarFix.mdx";
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
 
-### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `HFGenerativePRM` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/process_reward_models/huggingface/prms.py#L9" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `HFGenerativePRM` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/process_reward_models/huggingface/prms.py#L9" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 
 A Generative PRM that works with a huggingface backend.
@@ -29,7 +29,7 @@ A Generative PRM that works with a huggingface backend.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `score` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/process_reward_models/huggingface/prms.py#L36" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `score` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/process_reward_models/huggingface/prms.py#L36" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 score(self, query: str, response: str) -> tuple[list[float], list[list[float]]]
@@ -44,7 +44,7 @@ Returns a final and per-step score for a given input query and response.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `prepare_inputs` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/process_reward_models/huggingface/prms.py#L119" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `prepare_inputs` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/process_reward_models/huggingface/prms.py#L119" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 prepare_inputs(self, user_content: str, steps: list[str]) -> BatchEncoding
@@ -59,7 +59,7 @@ Prepare the inputs for inference with the model.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `HFRegressionPRM` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/process_reward_models/huggingface/prms.py#L158" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `HFRegressionPRM` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/process_reward_models/huggingface/prms.py#L158" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 
 A Regression PRM that works with a huggingface backend.
@@ -71,7 +71,7 @@ A Regression PRM that works with a huggingface backend.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `score` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/process_reward_models/huggingface/prms.py#L196" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `score` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/process_reward_models/huggingface/prms.py#L196" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 score(self, query: str, response: str) -> tuple[list[float], list[list[float]]]
@@ -86,7 +86,7 @@ Returns a final and per-step score for a given input query and response.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `prepare_inputs` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/process_reward_models/huggingface/prms.py#L238" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `prepare_inputs` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/process_reward_models/huggingface/prms.py#L238" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 prepare_inputs(self, user_content: str, steps: list[str]) -> BatchEncoding
