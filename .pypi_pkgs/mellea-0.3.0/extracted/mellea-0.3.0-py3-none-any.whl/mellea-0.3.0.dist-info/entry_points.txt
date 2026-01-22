@@ -1,0 +1,5 @@
+[console_scripts]
+m = cli.m:cli
+
+[gui_scripts]
+
