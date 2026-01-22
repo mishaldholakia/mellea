@@ -1,0 +1,50 @@
+{% block prefix %}
+{%- if prefix -%}
+  {{- prefix }}
+{% endif -%}
+{%- endblock prefix %}
+
+{%- block grounding_context -%}
+{%- if grounding_context|length > 0 -%}
+Write the response by aligning with the facts and items in the following grounding context:
+{%- for key, value in grounding_context.items() %}
+*  {% if key %} [{{ key }}] = {% endif %} {{ value -}}
+{% endfor %}
+{% endif %}
+{%- endblock grounding_context %}
+
+{%- block description -%}
+{%- if description -%}
+{{ description -}}
+{%- endif -%}
+{% endblock description %}
+
+{%- block requirements -%}
+{%- if requirements|length > 0 %}
+Ensure that the response fulfills the following requirements:
+{%- for req in requirements %}
+* {{ req -}}
+{% endfor %}
+{%- endif -%}
+{% endblock requirements %}
+
+{%- block icl_examples -%}
+{%- if icl_examples|length > 0 %}
+Here are some examples of what the response might look like:
+{%- for example in icl_examples %}
+* {{ example -}}
+{% endfor %}
+{%- endif -%}
+{% endblock icl_examples %}
+
+{%- block repair_block -%}
+{% if repair %}
+{{ repair -}}
+{%- endif -%}
+{% endblock repair_block %}
+
+{%- block output_prefix -%}
+{% if output_prefix %}
+{{ output_prefix -}}
+{%- endif -%}
+{% endblock output_prefix %}
