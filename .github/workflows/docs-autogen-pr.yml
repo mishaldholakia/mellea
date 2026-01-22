@@ -1,4 +1,4 @@
-name: Auto-generate docs PR
+name: Auto-generate docs PR (PyPI mellea)
 
 on:
   push:
@@ -28,12 +28,11 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install dependencies (mdxify/griffe + latest mellea from PyPI)
         run: |
           python -m pip install --upgrade pip
           pip install -r tooling/docs-autogen/requirements.txt
-          # Ensure imports resolve to this checkout (for correct source links)
-          pip install -e .
+          python -c "import importlib.metadata as m; print('mellea version:', m.version('mellea'))"
 
       - name: Generate API docs + merge docs.json
         run: |
@@ -56,14 +55,15 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
-          commit-message: "docs: auto-generate + decorate"
-          title: "docs: auto-generate + decorate (CI)"
+          commit-message: "docs: auto-generate (PyPI mellea latest)"
+          title: "docs: auto-generate (PyPI mellea latest)"
           body: |
-            This PR was automatically generated from a push to `feature/update-docs`.
+            This PR was automatically generated from the latest PyPI release of `mellea`.
 
             Steps performed:
-            - Generated API MDX docs
-            - Decorated API MDX for Mintlify sidebar badges
+            - Installed latest `mellea` from PyPI
+            - Generated API MDX docs with mdxify
+            - Decorated API MDX for Mintlify
             - Updated docs.json (API Reference tab)
           branch: "automation/docs-autogen"
           delete-branch: true
