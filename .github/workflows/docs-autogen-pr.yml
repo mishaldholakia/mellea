@@ -2,8 +2,14 @@ name: Auto-generate docs PR (PyPI mellea)
 
 on:
   push:
-    branches: ["feature/update-docs"]
-  workflow_dispatch: {}
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "PyPI version (e.g., v0.3.0). Leave empty for latest."
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -28,20 +34,46 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies (mdxify/griffe + latest mellea from PyPI)
+      - name: Install dependencies (mdxify/griffe only)
         run: |
           python -m pip install --upgrade pip
           pip install -r tooling/docs-autogen/requirements.txt
-          python -c "import importlib.metadata as m; print('mellea version:', m.version('mellea'))"
+          python -c "import mdxify, griffe; print('mdxify ok, griffe ok')"
 
-      - name: Generate API docs + merge docs.json
+      - name: Resolve version
+        id: ver
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            # tag push; e.g. v0.3.0
+            echo "version=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          else
+            # workflow_dispatch input (can be empty => latest)
+            echo "version=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+          fi
+          echo "Using version: '${{ steps.ver.outputs.version }}'"
+
+      - name: Generate API docs + merge docs.json (from PyPI artifact)
+        shell: bash
         run: |
           set -euxo pipefail
-          python3 tooling/docs-autogen/generate-ast.py \
-            --docs-json docs/docs/docs.json \
-            --docs-root docs/docs
+          VERSION="${{ steps.ver.outputs.version }}"
+          if [[ -n "${VERSION}" ]]; then
+            python3 tooling/docs-autogen/generate-ast.py \
+              --docs-json docs/docs/docs.json \
+              --docs-root docs/docs \
+              --pypi-name mellea \
+              --pypi-version "${VERSION}"
+          else
+            python3 tooling/docs-autogen/generate-ast.py \
+              --docs-json docs/docs/docs.json \
+              --docs-root docs/docs \
+              --pypi-name mellea
+          fi
 
       - name: Decorate API MDX (SidebarFix + pills)
+        shell: bash
         run: |
           set -euxo pipefail
           python3 tooling/docs-autogen/decorate_api_mdx.py \
@@ -55,13 +87,15 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
-          commit-message: "docs: auto-generate (PyPI mellea latest)"
-          title: "docs: auto-generate (PyPI mellea latest)"
+          commit-message: "docs: auto-generate (PyPI ${{ steps.ver.outputs.version || 'latest' }})"
+          title: "docs: auto-generate (PyPI ${{ steps.ver.outputs.version || 'latest' }})"
           body: |
-            This PR was automatically generated from the latest PyPI release of `mellea`.
+            This PR was automatically generated from the PyPI distribution of `mellea`.
+
+            Version: `${{ steps.ver.outputs.version || 'latest' }}`
 
             Steps performed:
-            - Installed latest `mellea` from PyPI
+            - Downloaded `mellea` from PyPI (wheel/sdist) and extracted it
             - Generated API MDX docs with mdxify
             - Decorated API MDX for Mintlify
             - Updated docs.json (API Reference tab)
