@@ -17,7 +17,7 @@ import { SidebarFix } from "/snippets/SidebarFix.mdx";
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
 
-### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `add_tools_from_model_options` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/tools.py#L13" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `add_tools_from_model_options` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/tools.py#L13" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 add_tools_from_model_options(tools_dict: dict[str, Callable], model_options: dict[str, Any])
@@ -29,7 +29,7 @@ If model_options has tools, add those tools to the tools_dict.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `add_tools_from_context_actions` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/tools.py#L45" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `add_tools_from_context_actions` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/tools.py#L45" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 add_tools_from_context_actions(tools_dict: dict[str, Callable], ctx_actions: list[Component | CBlock] | None)
@@ -41,7 +41,7 @@ If any of the actions in ctx_actions have tools in their template_representation
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `convert_tools_to_json` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/tools.py#L64" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `convert_tools_to_json` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/tools.py#L64" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 convert_tools_to_json(tools: dict[str, Callable]) -> list[dict]
@@ -58,7 +58,7 @@ Notes:
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `json_extraction` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/tools.py#L84" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `json_extraction` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/tools.py#L84" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 json_extraction(text: str) -> Generator[dict, None, None]
@@ -70,7 +70,7 @@ Yields the next valid json object in a given string.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `find_func` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/tools.py#L104" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `find_func` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/tools.py#L104" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 find_func(d) -> tuple[str | None, Mapping | None]
@@ -84,7 +84,7 @@ Most llms output tool requests in the form `...{"name": string, "arguments": {}}
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `parse_tools` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/tools.py#L133" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `parse_tools` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/tools.py#L133" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 parse_tools(llm_response: str) -> list[tuple[str, Mapping]]
