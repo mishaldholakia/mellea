@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """
-generate-ast.py (PyPI-driven, always-latest, mellea-only)
+generate-ast.py (PyPI/installed-package mode)
 
 What this does:
-  1) Installs are handled by CI (mdxify/griffe pinned; mellea latest from PyPI)
-  2) Runs mdxify for root module "mellea" -> staging <repo>/docs/api/mellea
+  1) Ensures docs are generated from *installed* packages (site-packages), not a repo checkout.
+  2) Runs mdxify for PACKAGES (mellea, cli) into STAGING: <repo-root>/docs/api/<pkg>/...
   3) Reorganizes flat mdxify output into nested folders
   4) Renames __init__.mdx -> <foldername>.mdx (dedupes if identical)
-  5) Updates frontmatter (title/sidebarTitle/description) + removes empty MDX files
-  6) Moves generated docs to <docs-root>/api (deletes existing first)
-  7) Builds Mintlify "API Reference" nav from moved files (NO .mdx suffix)
-  8) Merges that nav into docs.json by replacing ONLY the "API Reference" tab
+  5) Updates frontmatter (title/sidebarTitle/description) + removes truly-empty MDX files
+  6) Moves docs to Mintlify docs root: <docs-root>/api (replaces existing)
+  7) Builds Mintlify "API Reference" nav from moved files
+  8) Merges by replacing ONLY the { "tab": "API Reference", ... } tab
+  9) Paths written to docs.json DO NOT include ".mdx"
 
 Usage:
   python3 tooling/docs-autogen/generate-ast.py \
@@ -18,6 +19,7 @@ Usage:
     --docs-root docs/docs
 """
 
+import os
 import sys
 import json
 import glob
@@ -28,6 +30,9 @@ import shutil
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
+import importlib
+import importlib.util
+
 NAV_TAB = "API Reference"
 
 # Script is in tooling/docs-autogen/generate-ast.py -> repo root is 2 parents up
@@ -37,15 +42,17 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 STAGING_DOCS_ROOT = REPO_ROOT / "docs"
 STAGING_API_DIR = STAGING_DOCS_ROOT / "api"
 
-# PyPI-only, always-latest: only document this root module
-ROOT_MODULE = "mellea"
+# Generate docs ONLY for these installed modules
+PACKAGES = ["mellea", "cli"]
+
+# Optional: source links (keep if useful)
+REPO_URL = "https://github.com/generative-computing/mellea"
 
 
 # -----------------------------
 # Helpers
 # -----------------------------
 def yaml_quote(value: Optional[str]) -> str:
-    """Safe YAML string quoting for Mintlify frontmatter."""
     if value is None:
         return '""'
     v = str(value)
@@ -55,13 +62,21 @@ def yaml_quote(value: Optional[str]) -> str:
 
 
 def is_meaningful_body_line(line: str) -> bool:
+    """
+    IMPORTANT FIX:
+    Headings should count as meaningful content, otherwise package index pages get deleted.
+    """
     s = line.strip()
     if not s:
         return False
     if s.startswith("<!--") and s.endswith("-->"):
         return False
+    # ✅ headings are meaningful
     if s.startswith("#"):
-        return False
+        return True
+    # ✅ code fences are meaningful
+    if s.startswith("```"):
+        return True
     return True
 
 
@@ -110,7 +125,6 @@ def find_docs_json(cli_path: Optional[str]) -> Path:
 
 def merge_api_reference_into_docs_json(docs_json_path: Path, api_tab_obj: Dict[str, Any]) -> None:
     data = json.loads(docs_json_path.read_text(encoding="utf-8"))
-
     nav = data.get("navigation") or {}
     tabs = nav.get("tabs") or []
 
@@ -135,16 +149,48 @@ def merge_api_reference_into_docs_json(docs_json_path: Path, api_tab_obj: Dict[s
 
 
 # -----------------------------
-# Step 1: Setup staging
+# Step 0: Verify installed packages (PyPI mode)
 # -----------------------------
-def setup_staging() -> None:
+def resolve_installed_module_path(module_name: str) -> Path:
+    """
+    Ensure module is importable from the current environment (site-packages).
+    Returns the filesystem path to the module/package.
+    """
+    spec = importlib.util.find_spec(module_name)
+    if spec is None or (spec.origin is None and not spec.submodule_search_locations):
+        raise RuntimeError(
+            f"Could not find installed module '{module_name}'. "
+            f"Make sure it's installed in this environment (pip install {module_name})."
+        )
+
+    # package
+    if spec.submodule_search_locations:
+        return Path(list(spec.submodule_search_locations)[0]).resolve()
+
+    # single-file module
+    return Path(spec.origin).resolve()
+
+
+def setup_env() -> None:
     STAGING_API_DIR.mkdir(parents=True, exist_ok=True)
+
+    print(f"Python executable: {sys.executable}", flush=True)
+    print(f"Python version: {sys.version.split()[0]}", flush=True)
+
+    # Log installed paths for debugging
+    for pkg in PACKAGES:
+        p = resolve_installed_module_path(pkg)
+        print(f"✅ Using installed module '{pkg}' at: {p}", flush=True)
+
+    # IMPORTANT: do NOT set PYTHONPATH to repo root in PyPI mode.
+    os.environ.pop("PYTHONPATH", None)
+
     print(f"Staging API output: {STAGING_API_DIR}", flush=True)
     print("-" * 30, flush=True)
 
 
 # -----------------------------
-# Step 2: Run mdxify (generation only) - new CLI
+# Step 1: Run mdxify (installed modules)
 # -----------------------------
 def run_mdxify_generation(root_module: str) -> None:
     output_dir = STAGING_API_DIR / root_module
@@ -163,6 +209,8 @@ def run_mdxify_generation(root_module: str) -> None:
         str(output_dir),
         "--update-nav",
         "false",
+        "--repo-url",
+        REPO_URL,
     ]
 
     try:
@@ -174,16 +222,27 @@ def run_mdxify_generation(root_module: str) -> None:
 
 
 # -----------------------------
-# Step 3: Reorganize mdxify flat output -> nested folders
+# Step 2: Reorganize mdxify flat output -> nested folders
 # -----------------------------
-def reorganize_to_nested_structure(pkg: str) -> None:
+def reorganize_to_nested_structure() -> None:
     print("-" * 30, flush=True)
     print("📁 Reorganizing MDX files into nested folder structure...", flush=True)
 
-    all_mdx = glob.glob(str(STAGING_API_DIR / pkg / "*.mdx"))
-    # Only files directly under docs/api/<pkg> are considered "flat"
+    all_mdx = glob.glob(str(STAGING_API_DIR / "**" / "*.mdx"), recursive=True)
+
     for old in all_mdx:
         old_path = Path(old)
+
+        pkg = old_path.parent.name
+        parent_dir = old_path.parent
+
+        if pkg not in PACKAGES:
+            continue
+
+        # Only reorganize files directly under docs/api/<pkg> (flat)
+        if parent_dir != (STAGING_API_DIR / pkg):
+            continue
+
         base = old_path.stem
         prefix = f"{pkg}-"
         if not base.startswith(prefix):
@@ -208,13 +267,13 @@ def reorganize_to_nested_structure(pkg: str) -> None:
 
 
 # -----------------------------
-# Step 3b: Rename __init__.mdx -> <foldername>.mdx (dedupe if identical)
+# Step 3: Rename __init__.mdx -> <foldername>.mdx
 # -----------------------------
-def rename_init_files_to_parent(pkg: str) -> None:
+def rename_init_files_to_parent() -> None:
     print("-" * 30, flush=True)
     print("📛 Renaming __init__.mdx files to folder-name.mdx (dedupe if identical)...", flush=True)
 
-    init_files = glob.glob(str(STAGING_API_DIR / pkg / "**" / "__init__.mdx"), recursive=True)
+    init_files = glob.glob(str(STAGING_API_DIR / "**" / "__init__.mdx"), recursive=True)
 
     def normalize_text(s: str) -> str:
         return "\n".join(line.rstrip() for line in s.replace("\r\n", "\n").split("\n")).strip()
@@ -246,7 +305,7 @@ def rename_init_files_to_parent(pkg: str) -> None:
 
 
 # -----------------------------
-# Step 4: Update frontmatter (title/sidebarTitle/description)
+# Step 4: Update frontmatter from content
 # -----------------------------
 def extract_title_and_description(body_lines: List[str]) -> Tuple[Optional[str], Optional[str], Optional[int], Optional[int]]:
     h1_pattern = re.compile(r"^#\s+`?(.+?)`?\s*$")
@@ -280,11 +339,11 @@ def extract_title_and_description(body_lines: List[str]) -> Tuple[Optional[str],
     return title_value, desc_value, h1_idx, desc_idx
 
 
-def update_frontmatter_metadata(pkg: str) -> None:
+def update_frontmatter_metadata() -> None:
     print("-" * 30, flush=True)
     print("📝 Updating frontmatter title/description/sidebarTitle from content...", flush=True)
 
-    mdx_files = glob.glob(str(STAGING_API_DIR / pkg / "**" / "*.mdx"), recursive=True)
+    mdx_files = glob.glob(str(STAGING_API_DIR / "**" / "*.mdx"), recursive=True)
 
     for p in mdx_files:
         path = Path(p)
@@ -336,13 +395,13 @@ def update_frontmatter_metadata(pkg: str) -> None:
 
 
 # -----------------------------
-# Step 4b: Remove empty/no-content MDX
+# Step 4b: Remove empty/no-content MDX (safe)
 # -----------------------------
-def remove_empty_mdx_files(pkg: str) -> None:
+def remove_empty_mdx_files() -> None:
     print("-" * 30, flush=True)
     print("🧹 Removing empty/no-content MDX files...", flush=True)
 
-    mdx_files = glob.glob(str(STAGING_API_DIR / pkg / "**" / "*.mdx"), recursive=True)
+    mdx_files = glob.glob(str(STAGING_API_DIR / "**" / "*.mdx"), recursive=True)
     removed = 0
 
     for p in mdx_files:
@@ -384,7 +443,7 @@ def move_api_to_docs_root(target_docs_root: Path) -> Path:
 
 
 # -----------------------------
-# Step 6: Build Mintlify navigation from moved files (NO .mdx suffix)
+# Step 6: Build Mintlify navigation (NO .mdx)
 # -----------------------------
 def build_tree_from_paths(paths: List[str]) -> Dict[str, Any]:
     root: Dict[str, Any] = {}
@@ -399,7 +458,7 @@ def build_tree_from_paths(paths: List[str]) -> Dict[str, Any]:
 
     for p in paths:
         parts = p.split("/")
-        if len(parts) < 3:  # api/<pkg>/...
+        if len(parts) < 3:  # api/<pkg>/<...>
             continue
         sub = parts[2:]  # after api/<pkg>
         insert(root, sub[:-1], p)
@@ -432,16 +491,20 @@ def collect_pages_under(api_dir: Path, pkg: str, docs_root: Path) -> List[str]:
 
 
 def build_api_reference_tab_object(api_dir: Path, docs_root: Path) -> Dict[str, Any]:
+    cli_pages = collect_pages_under(api_dir, "cli", docs_root)
     mellea_pages = collect_pages_under(api_dir, "mellea", docs_root)
 
+    cli_tree = build_tree_from_paths(cli_pages)
     mellea_tree = build_tree_from_paths(mellea_pages)
+
+    cli_nav = tree_to_mintlify(cli_tree, "cli")
     mellea_nav = tree_to_mintlify(mellea_tree, "mellea")
 
-    # Only one top-level group: mellea
     return {
         "tab": NAV_TAB,
         "pages": [
             {"group": "mellea", "pages": mellea_nav["pages"]},
+            {"group": "cli", "pages": cli_nav["pages"]},
         ],
     }
 
@@ -458,7 +521,7 @@ def build_and_merge_navigation(docs_json_path: Path, api_dir: Path, docs_root: P
 # -----------------------------
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Generate MDX API docs from PyPI-installed mellea, move to docs root, and merge nav into docs.json"
+        description="Generate MDX API docs from installed packages, move to docs root, and merge nav into docs.json"
     )
     parser.add_argument("--docs-json", help="Path to docs.json to update (recommended for CI).", required=False)
     parser.add_argument(
@@ -472,16 +535,17 @@ def main() -> None:
     docs_json_path = find_docs_json(args.docs_json)
     docs_root = Path(args.docs_root).resolve() if args.docs_root else docs_json_path.parent.resolve()
 
-    setup_staging()
+    setup_env()
 
-    # Generate docs into staging using the PyPI-installed package
-    run_mdxify_generation(ROOT_MODULE)
+    # Generate MDX into staging
+    for pkg in PACKAGES:
+        run_mdxify_generation(pkg)
 
-    # Restructure + rename init + metadata cleanup
-    reorganize_to_nested_structure(ROOT_MODULE)
-    rename_init_files_to_parent(ROOT_MODULE)
-    update_frontmatter_metadata(ROOT_MODULE)
-    remove_empty_mdx_files(ROOT_MODULE)
+    # Restructure + rename init + metadata cleanup in staging
+    reorganize_to_nested_structure()
+    rename_init_files_to_parent()
+    update_frontmatter_metadata()
+    remove_empty_mdx_files()
 
     # Move staging api -> final docs root/api
     final_api_dir = move_api_to_docs_root(docs_root)
