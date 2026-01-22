@@ -17,7 +17,7 @@ import { SidebarFix } from "/snippets/SidebarFix.mdx";
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
 
-### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `get_session` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L42" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `get_session` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L42" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 get_session() -> MelleaSession
@@ -32,7 +32,7 @@ Get the current session from context.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `backend_name_to_class` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L56" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `backend_name_to_class` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L56" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 backend_name_to_class(name: str) -> Any
@@ -44,7 +44,7 @@ Resolves backend names to Backend classes.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `start_session` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L78" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `start_session` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L78" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 start_session(backend_name: Literal['ollama', 'hf', 'openai', 'watsonx', 'litellm'] = 'ollama', model_id: str | ModelIdentifier = IBM_GRANITE_4_MICRO_3B, ctx: Context | None = None, **backend_kwargs) -> MelleaSession
@@ -109,7 +109,7 @@ session.cleanup()
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
 
-### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `MelleaSession` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L148" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `MelleaSession` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L148" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 
 Mellea sessions are a THIN wrapper around `m` convenience functions with NO special semantics.
@@ -131,7 +131,7 @@ Note: we put the `instruct`, `validate`, and other convenience functions here in
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `clone` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L196" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `clone` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L196" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 clone(self)
@@ -163,7 +163,7 @@ Useful for running multiple generation requests while keeping the context at a g
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `reset` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L221" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `reset` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L221" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 reset(self)
@@ -174,7 +174,7 @@ Reset the context state.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `cleanup` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L225" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `cleanup` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L225" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 cleanup(self) -> None
@@ -185,7 +185,7 @@ Clean up session resources.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `act` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L232" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `act` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L232" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 act(self, action: Component) -> ModelOutputThunk
@@ -193,7 +193,7 @@ act(self, action: Component) -> ModelOutputThunk
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `act` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L245" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `act` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L245" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 act(self, action: Component) -> SamplingResult
@@ -201,7 +201,7 @@ act(self, action: Component) -> SamplingResult
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `act` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L257" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `act` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L257" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 act(self, action: Component) -> ModelOutputThunk | SamplingResult
@@ -224,7 +224,7 @@ Runs a generic action, and adds both the action and the result to the context.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `instruct` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L303" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `instruct` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L303" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 instruct(self, description: str) -> ModelOutputThunk
@@ -232,7 +232,7 @@ instruct(self, description: str) -> ModelOutputThunk
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `instruct` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L322" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `instruct` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L322" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 instruct(self, description: str) -> SamplingResult
@@ -240,7 +240,7 @@ instruct(self, description: str) -> SamplingResult
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `instruct` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L340" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `instruct` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L340" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 instruct(self, description: str) -> ModelOutputThunk | SamplingResult
@@ -266,7 +266,7 @@ Generates from an instruction.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `chat` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L401" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `chat` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L401" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 chat(self, content: str, role: Message.Role = 'user') -> Message
@@ -277,7 +277,7 @@ Sends a simple chat message and returns the response. Adds both messages to the 
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `validate` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L428" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `validate` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L428" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 validate(self, reqs: Requirement | list[Requirement]) -> list[ValidationResult]
@@ -288,7 +288,7 @@ Validates a set of requirements over the output (if provided) or the current con
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `query` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L450" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `query` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L450" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 query(self, obj: Any, query: str) -> ModelOutputThunk
@@ -309,7 +309,7 @@ Query method for retrieving information from an object.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `transform` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L483" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `transform` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L483" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 transform(self, obj: Any, transformation: str) -> ModelOutputThunk | Any
@@ -331,7 +331,7 @@ Transform method for creating a new object with the transformation applied.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `aact` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L516" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `aact` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L516" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 aact(self, action: Component) -> ModelOutputThunk
@@ -339,7 +339,7 @@ aact(self, action: Component) -> ModelOutputThunk
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `aact` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L529" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `aact` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L529" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 aact(self, action: Component) -> SamplingResult
@@ -347,7 +347,7 @@ aact(self, action: Component) -> SamplingResult
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `aact` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L541" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `aact` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L541" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 aact(self, action: Component) -> ModelOutputThunk | SamplingResult
@@ -370,7 +370,7 @@ Runs a generic action, and adds both the action and the result to the context.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `ainstruct` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L587" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `ainstruct` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L587" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 ainstruct(self, description: str) -> ModelOutputThunk
@@ -378,7 +378,7 @@ ainstruct(self, description: str) -> ModelOutputThunk
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `ainstruct` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L606" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `ainstruct` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L606" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 ainstruct(self, description: str) -> SamplingResult
@@ -386,7 +386,7 @@ ainstruct(self, description: str) -> SamplingResult
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `ainstruct` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L624" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `ainstruct` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L624" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 ainstruct(self, description: str) -> ModelOutputThunk | SamplingResult
@@ -412,7 +412,7 @@ Generates from an instruction.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `achat` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L685" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `achat` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L685" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 achat(self, content: str, role: Message.Role = 'user') -> Message
@@ -423,7 +423,7 @@ Sends a simple chat message and returns the response. Adds both messages to the 
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `avalidate` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L712" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `avalidate` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L712" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 avalidate(self, reqs: Requirement | list[Requirement]) -> list[ValidationResult]
@@ -434,7 +434,7 @@ Validates a set of requirements over the output (if provided) or the current con
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `aquery` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L734" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `aquery` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L734" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 aquery(self, obj: Any, query: str) -> ModelOutputThunk
@@ -455,7 +455,7 @@ Query method for retrieving information from an object.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `atransform` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L767" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `atransform` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L767" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 atransform(self, obj: Any, transformation: str) -> ModelOutputThunk | Any
@@ -477,7 +477,7 @@ Transform method for creating a new object with the transformation applied.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `powerup` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L800" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `powerup` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L800" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 powerup(cls, powerup_cls: type)
@@ -488,7 +488,7 @@ Appends methods in a class object `powerup_cls` to MelleaSession.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `last_prompt` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/session.py#L808" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `last_prompt` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/stdlib/session.py#L808" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 last_prompt(self) -> str | list[dict] | None
