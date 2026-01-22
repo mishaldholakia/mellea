@@ -1,22 +1,30 @@
 #!/usr/bin/env python3
 """
-generate-ast.py (PyPI/installed-package mode)
+generate-ast.py (PyPI download + extract mode, no install)
 
-What this does:
-  1) Ensures docs are generated from *installed* packages (site-packages), not a repo checkout.
-  2) Runs mdxify for PACKAGES (mellea, cli) into STAGING: <repo-root>/docs/api/<pkg>/...
-  3) Reorganizes flat mdxify output into nested folders
-  4) Renames __init__.mdx -> <foldername>.mdx (dedupes if identical)
-  5) Updates frontmatter (title/sidebarTitle/description) + removes truly-empty MDX files
-  6) Moves docs to Mintlify docs root: <docs-root>/api (replaces existing)
-  7) Builds Mintlify "API Reference" nav from moved files
-  8) Merges by replacing ONLY the { "tab": "API Reference", ... } tab
-  9) Paths written to docs.json DO NOT include ".mdx"
+Pipeline:
+  0) Download mellea distribution from PyPI (wheel preferred; falls back to sdist)
+  1) Extract into a temp working dir under <repo-root>/.pypi_pkgs/...
+  2) Discover import roots that contain the target top-level packages: mellea/, cli/
+  3) Run mdxify for PACKAGES into STAGING: <repo-root>/docs/api/<pkg>/...
+  4) Reorganize flat mdxify output into nested folders
+  5) Rename __init__.mdx -> <foldername>.mdx (dedupe if identical)
+  6) Update frontmatter (title/sidebarTitle/description)
+  7) Remove truly-empty MDX files
+  8) Move generated docs to <docs-root>/api (replace existing)
+  9) Build Mintlify API Reference nav (NO .mdx suffix)
+ 10) Merge by replacing ONLY: { "tab": "API Reference", ... } in docs.json
 
 Usage:
   python3 tooling/docs-autogen/generate-ast.py \
     --docs-json docs/docs/docs.json \
-    --docs-root docs/docs
+    --docs-root docs/docs \
+    --pypi-name mellea \
+    --pypi-version v0.3.0
+
+Notes:
+  - --pypi-version may be "v0.3.0" or "0.3.0". If omitted, downloads latest.
+  - Requires pip available in the environment.
 """
 
 import os
@@ -27,25 +35,26 @@ import re
 import subprocess
 import argparse
 import shutil
+import zipfile
+import tarfile
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
-
-import importlib
-import importlib.util
+from typing import Any, Dict, List, Optional, Tuple, Set
 
 NAV_TAB = "API Reference"
 
 # Script is in tooling/docs-autogen/generate-ast.py -> repo root is 2 parents up
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
+# Work dir to store downloaded/extracted artifacts
+PYPI_WORK_DIR = REPO_ROOT / ".pypi_pkgs"
+
 # Staging output
 STAGING_DOCS_ROOT = REPO_ROOT / "docs"
 STAGING_API_DIR = STAGING_DOCS_ROOT / "api"
 
-# Generate docs ONLY for these installed modules
+# Only focus on these two root modules (must exist in extracted tree)
 PACKAGES = ["mellea", "cli"]
 
-# Optional: source links (keep if useful)
 REPO_URL = "https://github.com/generative-computing/mellea"
 
 
@@ -55,29 +64,9 @@ REPO_URL = "https://github.com/generative-computing/mellea"
 def yaml_quote(value: Optional[str]) -> str:
     if value is None:
         return '""'
-    v = str(value)
-    v = v.replace("\\", "\\\\").replace('"', '\\"')
+    v = str(value).replace("\\", "\\\\").replace('"', '\\"')
     v = v.replace("\r\n", "\n").replace("\n", "\\n")
     return f'"{v}"'
-
-
-def is_meaningful_body_line(line: str) -> bool:
-    """
-    IMPORTANT FIX:
-    Headings should count as meaningful content, otherwise package index pages get deleted.
-    """
-    s = line.strip()
-    if not s:
-        return False
-    if s.startswith("<!--") and s.endswith("-->"):
-        return False
-    # ✅ headings are meaningful
-    if s.startswith("#"):
-        return True
-    # ✅ code fences are meaningful
-    if s.startswith("```"):
-        return True
-    return True
 
 
 def strip_frontmatter(lines: List[str]) -> List[str]:
@@ -88,6 +77,18 @@ def strip_frontmatter(lines: List[str]) -> List[str]:
         except StopIteration:
             return []
     return lines
+
+
+def is_meaningful_body_line(line: str) -> bool:
+    """
+    IMPORTANT: headings count as meaningful so we don't delete index pages.
+    """
+    s = line.strip()
+    if not s:
+        return False
+    if s.startswith("<!--") and s.endswith("-->"):
+        return False
+    return True
 
 
 def safe_read_text(path: Path) -> str:
@@ -143,54 +144,148 @@ def merge_api_reference_into_docs_json(docs_json_path: Path, api_tab_obj: Dict[s
 
     nav["tabs"] = tabs
     data["navigation"] = nav
-
     docs_json_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
     print(f"✅ Merged API Reference tab into: {docs_json_path}", flush=True)
 
 
 # -----------------------------
-# Step 0: Verify installed packages (PyPI mode)
+# PyPI download + extract
 # -----------------------------
-def resolve_installed_module_path(module_name: str) -> Path:
+def normalize_version(v: Optional[str]) -> Optional[str]:
+    if not v:
+        return None
+    return v[1:] if v.startswith("v") else v
+
+
+def run_pip_download(pypi_name: str, pypi_version: Optional[str], dest_dir: Path) -> List[Path]:
     """
-    Ensure module is importable from the current environment (site-packages).
-    Returns the filesystem path to the module/package.
+    Downloads a distribution to dest_dir using pip download.
+    Prefers wheel automatically if available.
     """
-    spec = importlib.util.find_spec(module_name)
-    if spec is None or (spec.origin is None and not spec.submodule_search_locations):
+    dest_dir.mkdir(parents=True, exist_ok=True)
+
+    spec = pypi_name if not pypi_version else f"{pypi_name}=={pypi_version}"
+    cmd = [
+        sys.executable,
+        "-m",
+        "pip",
+        "download",
+        "--no-deps",
+        "--dest",
+        str(dest_dir),
+        spec,
+    ]
+    print("⬇️  Downloading from PyPI:", " ".join(cmd), flush=True)
+    subprocess.run(cmd, check=True)
+
+    files = sorted(dest_dir.glob("*"))
+    dists = [p for p in files if p.suffix in {".whl", ".zip"} or p.name.endswith((".tar.gz", ".tgz"))]
+    if not dists:
+        raise RuntimeError(f"pip download produced no wheel/sdist in {dest_dir}")
+    return dists
+
+
+def extract_dist(artifact: Path, out_dir: Path) -> Path:
+    """
+    Extract wheel/sdist into out_dir/<artifact_stem>/ and return extracted root.
+    """
+    out_dir.mkdir(parents=True, exist_ok=True)
+    root = out_dir / artifact.name
+    if root.exists():
+        shutil.rmtree(root)
+    root.mkdir(parents=True, exist_ok=True)
+
+    print(f"📦 Extracting {artifact.name} -> {root}", flush=True)
+
+    if artifact.suffix == ".whl" or artifact.suffix == ".zip":
+        with zipfile.ZipFile(artifact, "r") as zf:
+            zf.extractall(root)
+        return root
+
+    if artifact.name.endswith(".tar.gz") or artifact.name.endswith(".tgz"):
+        with tarfile.open(artifact, "r:gz") as tf:
+            tf.extractall(root)
+        return root
+
+    raise RuntimeError(f"Unsupported artifact type: {artifact}")
+
+
+def find_import_roots(extracted_root: Path, module_names: List[str]) -> List[Path]:
+    """
+    Find parent dirs that should be on PYTHONPATH so `import <module>` works.
+
+    We search for directories named exactly the module names containing __init__.py.
+    For each hit, we add its parent as an import root.
+    Handles layouts like:
+      - wheel: <root>/mellea/__init__.py
+      - sdist: <root>/<project>/src/mellea/__init__.py
+    """
+    needed: Set[str] = set(module_names)
+    roots: Set[Path] = set()
+
+    for mod in module_names:
+        hits = list(extracted_root.rglob(f"{mod}/__init__.py"))
+        for init_py in hits:
+            pkg_dir = init_py.parent
+            roots.add(pkg_dir.parent.resolve())
+
+    # Validate we can find each requested module somewhere
+    found = set()
+    for r in roots:
+        for mod in module_names:
+            if (r / mod / "__init__.py").exists():
+                found.add(mod)
+
+    missing = needed - found
+    if missing:
         raise RuntimeError(
-            f"Could not find installed module '{module_name}'. "
-            f"Make sure it's installed in this environment (pip install {module_name})."
+            f"Could not locate these modules in extracted artifact: {sorted(missing)}.\n"
+            f"Extracted root: {extracted_root}\n"
+            f"Found import roots: {sorted(str(p) for p in roots)}"
         )
 
-    # package
-    if spec.submodule_search_locations:
-        return Path(list(spec.submodule_search_locations)[0]).resolve()
-
-    # single-file module
-    return Path(spec.origin).resolve()
+    return sorted(roots)
 
 
-def setup_env() -> None:
+def setup_env_from_pypi(pypi_name: str, pypi_version: Optional[str]) -> None:
     STAGING_API_DIR.mkdir(parents=True, exist_ok=True)
+    PYPI_WORK_DIR.mkdir(parents=True, exist_ok=True)
 
-    print(f"Python executable: {sys.executable}", flush=True)
-    print(f"Python version: {sys.version.split()[0]}", flush=True)
+    ver = normalize_version(pypi_version)
+    tag = ver if ver else "latest"
+    run_dir = PYPI_WORK_DIR / f"{pypi_name}-{tag}"
+    downloads = run_dir / "downloads"
+    extracted = run_dir / "extracted"
 
-    # Log installed paths for debugging
-    for pkg in PACKAGES:
-        p = resolve_installed_module_path(pkg)
-        print(f"✅ Using installed module '{pkg}' at: {p}", flush=True)
+    # Clean run_dir to keep things deterministic
+    if run_dir.exists():
+        shutil.rmtree(run_dir)
+    downloads.mkdir(parents=True, exist_ok=True)
+    extracted.mkdir(parents=True, exist_ok=True)
 
-    # IMPORTANT: do NOT set PYTHONPATH to repo root in PyPI mode.
-    os.environ.pop("PYTHONPATH", None)
+    artifacts = run_pip_download(pypi_name, ver, downloads)
+
+    # Prefer wheel if present
+    wheel = next((a for a in artifacts if a.suffix == ".whl"), None)
+    chosen = wheel if wheel else artifacts[0]
+
+    extracted_root = extract_dist(chosen, extracted)
+    import_roots = find_import_roots(extracted_root, PACKAGES)
+
+    # IMPORTANT: set PYTHONPATH to extracted roots so mdxify imports the extracted code.
+    os.environ["PYTHONPATH"] = os.pathsep.join(str(p) for p in import_roots)
+
+    print(f"✅ Using extracted artifact: {chosen.name}", flush=True)
+    print(f"✅ PYTHONPATH set to:", flush=True)
+    for p in import_roots:
+        print(f"   - {p}", flush=True)
 
     print(f"Staging API output: {STAGING_API_DIR}", flush=True)
     print("-" * 30, flush=True)
 
 
 # -----------------------------
-# Step 1: Run mdxify (installed modules)
+# mdxify generation
 # -----------------------------
 def run_mdxify_generation(root_module: str) -> None:
     output_dir = STAGING_API_DIR / root_module
@@ -222,7 +317,7 @@ def run_mdxify_generation(root_module: str) -> None:
 
 
 # -----------------------------
-# Step 2: Reorganize mdxify flat output -> nested folders
+# Restructure + cleanup
 # -----------------------------
 def reorganize_to_nested_structure() -> None:
     print("-" * 30, flush=True)
@@ -266,9 +361,6 @@ def reorganize_to_nested_structure() -> None:
     print("✅ Folder reorganization complete.", flush=True)
 
 
-# -----------------------------
-# Step 3: Rename __init__.mdx -> <foldername>.mdx
-# -----------------------------
 def rename_init_files_to_parent() -> None:
     print("-" * 30, flush=True)
     print("📛 Renaming __init__.mdx files to folder-name.mdx (dedupe if identical)...", flush=True)
@@ -304,9 +396,6 @@ def rename_init_files_to_parent() -> None:
     print("✅ __init__.mdx rename/dedupe pass complete.", flush=True)
 
 
-# -----------------------------
-# Step 4: Update frontmatter from content
-# -----------------------------
 def extract_title_and_description(body_lines: List[str]) -> Tuple[Optional[str], Optional[str], Optional[int], Optional[int]]:
     h1_pattern = re.compile(r"^#\s+`?(.+?)`?\s*$")
 
@@ -394,9 +483,6 @@ def update_frontmatter_metadata() -> None:
     print("✅ Frontmatter update complete.", flush=True)
 
 
-# -----------------------------
-# Step 4b: Remove empty/no-content MDX (safe)
-# -----------------------------
 def remove_empty_mdx_files() -> None:
     print("-" * 30, flush=True)
     print("🧹 Removing empty/no-content MDX files...", flush=True)
@@ -419,7 +505,7 @@ def remove_empty_mdx_files() -> None:
 
 
 # -----------------------------
-# Step 5: Move staging api -> target docs root
+# Move + nav generation
 # -----------------------------
 def move_api_to_docs_root(target_docs_root: Path) -> Path:
     target_docs_root = target_docs_root.resolve()
@@ -442,9 +528,6 @@ def move_api_to_docs_root(target_docs_root: Path) -> Path:
     return target_api_dir
 
 
-# -----------------------------
-# Step 6: Build Mintlify navigation (NO .mdx)
-# -----------------------------
 def build_tree_from_paths(paths: List[str]) -> Dict[str, Any]:
     root: Dict[str, Any] = {}
 
@@ -458,7 +541,7 @@ def build_tree_from_paths(paths: List[str]) -> Dict[str, Any]:
 
     for p in paths:
         parts = p.split("/")
-        if len(parts) < 3:  # api/<pkg>/<...>
+        if len(parts) < 3:
             continue
         sub = parts[2:]  # after api/<pkg>
         insert(root, sub[:-1], p)
@@ -485,7 +568,7 @@ def collect_pages_under(api_dir: Path, pkg: str, docs_root: Path) -> List[str]:
     out: List[str] = []
     for f in files:
         fp = Path(f)
-        rel = fp.relative_to(docs_root)  # api/<pkg>/...
+        rel = fp.relative_to(docs_root)
         out.append(rel.as_posix().removesuffix(".mdx"))
     return sorted(out)
 
@@ -521,27 +604,27 @@ def build_and_merge_navigation(docs_json_path: Path, api_dir: Path, docs_root: P
 # -----------------------------
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Generate MDX API docs from installed packages, move to docs root, and merge nav into docs.json"
+        description="Generate MDX API docs from a PyPI-downloaded artifact, move to docs root, merge nav into docs.json"
     )
-    parser.add_argument("--docs-json", help="Path to docs.json to update (recommended for CI).", required=False)
-    parser.add_argument(
-        "--docs-root",
-        help="Mintlify docs root (folder that contains docs.json, api/, snippets/, etc.). "
-             "Defaults to parent directory of --docs-json.",
-        required=False,
-    )
+    parser.add_argument("--docs-json", required=False, help="Path to docs.json to update.")
+    parser.add_argument("--docs-root", required=False, help="Mintlify docs root (defaults to parent of docs.json).")
+
+    parser.add_argument("--pypi-name", default="mellea", help="PyPI project name to download (default: mellea).")
+    parser.add_argument("--pypi-version", required=False, help="Version like v0.3.0 or 0.3.0. Omit for latest.")
+
     args = parser.parse_args()
 
     docs_json_path = find_docs_json(args.docs_json)
     docs_root = Path(args.docs_root).resolve() if args.docs_root else docs_json_path.parent.resolve()
 
-    setup_env()
+    # Download + extract + set PYTHONPATH to extracted roots
+    setup_env_from_pypi(args.pypi_name, args.pypi_version)
 
     # Generate MDX into staging
     for pkg in PACKAGES:
         run_mdxify_generation(pkg)
 
-    # Restructure + rename init + metadata cleanup in staging
+    # Restructure + cleanup in staging
     reorganize_to_nested_structure()
     rename_init_files_to_parent()
     update_frontmatter_metadata()
@@ -552,6 +635,9 @@ def main() -> None:
 
     # Merge nav based on final location
     build_and_merge_navigation(docs_json_path, final_api_dir, docs_root)
+
+    # Cleanup env
+    os.environ.pop("PYTHONPATH", None)
 
     print("-" * 30, flush=True)
     print("🎉 All tasks complete!", flush=True)
