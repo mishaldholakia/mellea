@@ -6,7 +6,7 @@ from typing import Any
 
 
 class Cache(abc.ABC):
-    """A Cache for storing model state (e.g., kv cache TableTennis)."""
+    """A Cache for storing model state (e.g., kv cache)."""
 
     # Whenever PEP 695 generics are supported by mypy, we should use them here.
 
