@@ -5,7 +5,7 @@ on:
     branches: ["feature/update-docs"]
   workflow_dispatch: {}
   schedule:
-    - cron: "0 9 * * *" # daily 09:00 UTC (adjust as you like)
+    - cron: "0 9 * * *" # daily 09:00 UTC
 
 permissions:
   contents: write
@@ -29,11 +29,13 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: "pip"
 
-      - name: Install dependencies (mdxify/griffe + latest mellea from PyPI)
+      - name: Install tooling dependencies (decorator deps etc.)
         run: |
           python -m pip install --upgrade pip
-          pip install -r tooling/docs-autogen/requirements.txt
+          # If decorate_api_mdx.py has deps, keep this file. Otherwise you can drop it.
+          pip install -r tooling/docs-autogen/requirements.txt || true
 
       - name: Decide whether docs generation is needed
         id: decide
@@ -73,15 +75,22 @@ jobs:
           echo "need=$NEED" >> "$GITHUB_OUTPUT"
           echo "latest=$LATEST" >> "$GITHUB_OUTPUT"
 
-
-      - name: Generate API docs + merge docs.json
+      - name: Generate API docs + merge docs.json (install-mode)
         if: steps.decide.outputs.need == 'true'
         run: |
           set -euxo pipefail
           python3 tooling/docs-autogen/generate-ast.py \
             --docs-json docs/docs/docs.json \
             --docs-root docs/docs \
+            --pypi-name mellea \
             --pypi-version "${{ steps.decide.outputs.latest }}"
+
+      - name: Stamp generated PyPI version
+        if: steps.decide.outputs.need == 'true'
+        run: |
+          set -euxo pipefail
+          mkdir -p docs/docs/api
+          echo "${{ steps.decide.outputs.latest }}" > docs/docs/api/.pypi-mellea-version
 
       - name: Decorate API MDX (SidebarFix + pills)
         if: steps.decide.outputs.need == 'true'
@@ -95,6 +104,14 @@ jobs:
         run: |
           git status --porcelain
           git diff --stat || true
+
+      # ✅ Cleanup after success (and we’ll also add an "always" cleanup below)
+      - name: Cleanup local tooling environment (success)
+        if: steps.decide.outputs.need == 'true' && success()
+        run: |
+          set -euxo pipefail
+          rm -rf .venv-docs-autogen .mdxify-run-cwd || true
+          rm -rf docs/api || true  # in case staging is left around by an early exit
 
       - name: Create Pull Request
         if: steps.decide.outputs.need == 'true'
@@ -115,3 +132,10 @@ jobs:
           labels: |
             documentation
             automation
+
+      # 🧹 Optional: cleanup even if something fails (useful on self-hosted runners)
+      - name: Cleanup local tooling environment (always)
+        if: always()
+        run: |
+          rm -rf .venv-docs-autogen .mdxify-run-cwd || true
+          rm -rf docs/api || true
