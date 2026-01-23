@@ -7,17 +7,29 @@ description: "Base Sampling Strategies."
 
 
 
+
+import { SidebarFix } from "/snippets/SidebarFix.mdx";
+
+<SidebarFix />
+
 ## Classes
 
-### `BaseSamplingStrategy` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L26" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
+
+
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `BaseSamplingStrategy` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L19" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 
 Base class for multiple strategies that rejects samples based on given instructions.
 
 
+
+<div className="h-8" />
 **Methods:**
 
-#### `repair` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L52" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `repair` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L45" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 repair(old_ctx: Context, new_ctx: Context, past_actions: list[Component], past_results: list[ModelOutputThunk], past_val: list[list[tuple[Requirement, ValidationResult]]]) -> tuple[Component, Context]
@@ -36,7 +48,9 @@ Repair function that is being invoked if not all requirements are fulfilled. It 
 - The next action component and context to be used for the next generation attempt.
 
 
-#### `select_from_failure` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L77" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `select_from_failure` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L68" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 select_from_failure(sampled_actions: list[Component], sampled_results: list[ModelOutputThunk], sampled_val: list[list[tuple[Requirement, ValidationResult]]]) -> int
@@ -53,16 +67,18 @@ This function returns the index of the result that should be selected as `.value
 - The index of the result that should be selected as `.value`.
 
 
-#### `sample` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L94" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `sample` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L85" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
-sample(self, action: Component[S], context: Context, backend: Backend, requirements: list[Requirement] | None) -> SamplingResult[S]
+sample(self, action: Component, context: Context, backend: Backend, requirements: list[Requirement] | None) -> SamplingResult
 ```
 
 This method performs a sampling operation based on the given instruction.
 
 **Args:**
-- `action `: The action object to be sampled.
+- `action`: The action object to be sampled.
 - `context`: The context to be passed to the sampling strategy.
 - `backend`: The backend used for generating samples.
 - `requirements`: List of requirements to test against (merged with global requirements).
@@ -79,15 +95,21 @@ This method performs a sampling operation based on the given instruction.
 - `AssertionError`: Asserts that all required components (repair, select_from_failure, validate, and generate) are provided before proceeding with the sampling.
 
 
-### `RejectionSamplingStrategy` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L259" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
+
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `RejectionSamplingStrategy` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L243" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 
 Simple rejection sampling strategy that just repeats the same call on failure.
 
 
+
+<div className="h-8" />
 **Methods:**
 
-#### `select_from_failure` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L263" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `select_from_failure` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L247" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 select_from_failure(sampled_actions: list[Component], sampled_results: list[ModelOutputThunk], sampled_val: list[list[tuple[Requirement, ValidationResult]]]) -> int
@@ -104,7 +126,9 @@ Always returns the 0th index.
 - The index of the result that should be selected as `.value`.
 
 
-#### `repair` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L281" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `repair` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L265" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 repair(old_ctx: Context, new_ctx: Context, past_actions: list[Component], past_results: list[ModelOutputThunk], past_val: list[list[tuple[Requirement, ValidationResult]]]) -> tuple[Component, Context]
@@ -123,15 +147,21 @@ Always returns the unedited, last action.
 - The next action component and context to be used for the next generation attempt.
 
 
-### `RepairTemplateStrategy` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L303" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
+
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `RepairTemplateStrategy` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L287" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 
 A sampling strategy that adds a repair string to the instruction object.
 
 
+
+<div className="h-8" />
 **Methods:**
 
-#### `select_from_failure` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L307" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `select_from_failure` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L291" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 select_from_failure(sampled_actions: list[Component], sampled_results: list[ModelOutputThunk], sampled_val: list[list[tuple[Requirement, ValidationResult]]]) -> int
@@ -148,7 +178,9 @@ Always returns the 0th index.
 - The index of the result that should be selected as `.value`.
 
 
-#### `repair` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L325" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `repair` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L309" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 repair(old_ctx: Context, new_ctx: Context, past_actions: list[Component], past_results: list[ModelOutputThunk], past_val: list[list[tuple[Requirement, ValidationResult]]]) -> tuple[Component, Context]
@@ -167,15 +199,21 @@ Adds a description of the requirements that failed to a copy of the original ins
 - The next action component and context to be used for the next generation attempt.
 
 
-### `MultiTurnStrategy` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L368" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
+
+### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `MultiTurnStrategy` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L352" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 
 Rejection sampling strategy with (agentic) multi-turn repair.
 
 
+
+<div className="h-8" />
 **Methods:**
 
-#### `select_from_failure` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L372" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `select_from_failure` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L356" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 select_from_failure(sampled_actions: list[Component], sampled_results: list[ModelOutputThunk], sampled_val: list[list[tuple[Requirement, ValidationResult]]])
@@ -192,7 +230,9 @@ Always returns the last index. The last message from the model will always be re
 - The index of the result that should be selected as `.value`.
 
 
-#### `repair` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L390" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `repair` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/sampling/base.py#L374" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 repair(old_ctx: Context, new_ctx: Context, past_actions: list[Component], past_results: list[ModelOutputThunk], past_val: list[list[tuple[Requirement, ValidationResult]]]) -> tuple[Component, Context]
@@ -209,3 +249,5 @@ Returns a Message with a description of the failed requirements.
 
 **Returns:**
 - The next action component and context to be used for the next generation attempt.
+
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
