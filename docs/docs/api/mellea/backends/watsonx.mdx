@@ -43,7 +43,7 @@ Filter kwargs to only include valid watsonx chat.completions.create parameters.
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_context` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/watsonx.py#L239" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
-generate_from_context(self, action: Component | CBlock, ctx: Context)
+generate_from_context(self, action: Component[C] | CBlock, ctx: Context) -> tuple[ModelOutputThunk[C], Context]
 ```
 
 See `generate_from_chat_context`.
@@ -54,7 +54,7 @@ See `generate_from_chat_context`.
 #### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_chat_context` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/watsonx.py#L261" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
-generate_from_chat_context(self, action: Component | CBlock, ctx: Context) -> ModelOutputThunk
+generate_from_chat_context(self, action: Component[C] | CBlock, ctx: Context) -> ModelOutputThunk[C]
 ```
 
 Generates a new completion from the provided Context using this backend's `Formatter`.
@@ -62,7 +62,7 @@ Generates a new completion from the provided Context using this backend's `Forma
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `processing` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/watsonx.py#L387" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `processing` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/watsonx.py#L389" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 processing(self, mot: ModelOutputThunk, chunk: dict)
@@ -75,7 +75,7 @@ For OpenAI-like APIs, tool call parsing is handled in the post processing step.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `post_processing` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/watsonx.py#L430" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `post_processing` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/watsonx.py#L432" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 post_processing(self, mot: ModelOutputThunk, conversation: list[dict], tools: dict[str, Callable], seed, _format)
@@ -86,10 +86,26 @@ Called when generation is done.
 
 <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
 
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_raw` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/watsonx.py#L483" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_raw` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/watsonx.py#L484" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
-generate_from_raw(self, actions: list[Component | CBlock], ctx: Context) -> list[ModelOutputThunk]
+generate_from_raw(self, actions: list[Component[C]], ctx: Context) -> list[ModelOutputThunk[C]]
+```
+
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_raw` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/watsonx.py#L495" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+generate_from_raw(self, actions: list[Component[C] | CBlock], ctx: Context) -> list[ModelOutputThunk[C | str]]
+```
+
+<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
+
+#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_raw` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/watsonx.py#L505" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+generate_from_raw(self, actions: Sequence[Component[C] | CBlock], ctx: Context) -> list[ModelOutputThunk]
 ```
 
 Generates a completion text. Gives the input provided to the model without templating.
