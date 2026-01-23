@@ -2,10 +2,9 @@ name: Auto-generate docs PR (PyPI mellea)
 
 on:
   push:
-    branches: ["feature/update-docs"]
+    tags:
+      - "v*"
   workflow_dispatch: {}
-  schedule:
-    - cron: "0 9 * * *" # daily 09:00 UTC
 
 permissions:
   contents: write
@@ -31,109 +30,53 @@ jobs:
           python-version: "3.11"
           cache: "pip"
 
-      - name: Install tooling dependencies (decorator deps etc.)
-        run: |
-          python -m pip install --upgrade pip
-          # If decorate_api_mdx.py has deps, keep this file. Otherwise you can drop it.
-          pip install -r tooling/docs-autogen/requirements.txt || true
-
-      - name: Decide whether docs generation is needed
-        id: decide
+      - name: Resolve version from tag
+        id: ver
         shell: bash
         run: |
           set -euo pipefail
+          TAG="${GITHUB_REF_NAME}"          # e.g. v0.3.0
+          VERSION="${TAG#v}"               # 0.3.0
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Using version: $VERSION"
 
-          DOCS_API_DIR="docs/docs/api"
-          STAMP_FILE="$DOCS_API_DIR/.pypi-mellea-version"
-
-          LATEST="$(python -c "import json, urllib.request; print(json.load(urllib.request.urlopen('https://pypi.org/pypi/mellea/json'))['info']['version'])")"
-          echo "Latest PyPI mellea: $LATEST"
-
-          CURRENT=""
-          if [ -f "$STAMP_FILE" ]; then
-            CURRENT="$(cat "$STAMP_FILE" | tr -d ' \n\r\t')"
-          fi
-          echo "Current stamped mellea: ${CURRENT:-<none>}"
-
-          NEED="false"
-
-          if [ ! -d "$DOCS_API_DIR" ]; then
-            echo "docs/docs/api does not exist."
-            NEED="true"
-          else
-            if ! find "$DOCS_API_DIR" -type f -name "*.mdx" | grep -q .; then
-              echo "docs/docs/api exists but contains no .mdx."
-              NEED="true"
-            fi
-          fi
-
-          if [ "$CURRENT" != "$LATEST" ]; then
-            echo "Version changed (or not stamped yet)."
-            NEED="true"
-          fi
-
-          echo "need=$NEED" >> "$GITHUB_OUTPUT"
-          echo "latest=$LATEST" >> "$GITHUB_OUTPUT"
+      - name: Install tooling dependencies (decorator deps etc.)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r tooling/docs-autogen/requirements.txt || true
 
       - name: Generate API docs + merge docs.json (install-mode)
-        if: steps.decide.outputs.need == 'true'
         run: |
           set -euxo pipefail
           python3 tooling/docs-autogen/generate-ast.py \
             --docs-json docs/docs/docs.json \
             --docs-root docs/docs \
             --pypi-name mellea \
-            --pypi-version "${{ steps.decide.outputs.latest }}"
-
-      - name: Stamp generated PyPI version
-        if: steps.decide.outputs.need == 'true'
-        run: |
-          set -euxo pipefail
-          mkdir -p docs/docs/api
-          echo "${{ steps.decide.outputs.latest }}" > docs/docs/api/.pypi-mellea-version
+            --pypi-version "${{ steps.ver.outputs.version }}"
 
       - name: Decorate API MDX (SidebarFix + pills)
-        if: steps.decide.outputs.need == 'true'
         run: |
           set -euxo pipefail
           python3 tooling/docs-autogen/decorate_api_mdx.py \
             --docs-root docs/docs
 
-      - name: Show git status
-        if: steps.decide.outputs.need == 'true'
-        run: |
-          git status --porcelain
-          git diff --stat || true
-
-      # ✅ Cleanup after success (and we’ll also add an "always" cleanup below)
-      - name: Cleanup local tooling environment (success)
-        if: steps.decide.outputs.need == 'true' && success()
-        run: |
-          set -euxo pipefail
-          rm -rf .venv-docs-autogen .mdxify-run-cwd || true
-          rm -rf docs/api || true  # in case staging is left around by an early exit
-
-      - name: Create Pull Request
-        if: steps.decide.outputs.need == 'true'
+      - name: Create Pull Request (only if there are changes)
+        id: cpr
         uses: peter-evans/create-pull-request@v6
         with:
-          commit-message: "docs: auto-generate (PyPI mellea ${{ steps.decide.outputs.latest }})"
-          title: "docs: auto-generate (PyPI mellea ${{ steps.decide.outputs.latest }})"
+          commit-message: "docs: auto-generate (PyPI mellea ${{ steps.ver.outputs.version }})"
+          title: "docs: auto-generate (PyPI mellea ${{ steps.ver.outputs.version }})"
           body: |
-            This PR was automatically generated from the latest PyPI release of `mellea`.
+            This PR was automatically generated for tag `${{ steps.ver.outputs.tag }}`.
 
-            Trigger conditions:
-            - docs/docs/api missing or empty, OR
-            - PyPI version changed
-
-            Latest PyPI version: ${{ steps.decide.outputs.latest }}
-          branch: "automation/docs-autogen"
+            Target PyPI version: `${{ steps.ver.outputs.version }}`
+          branch: "automation/docs-autogen-${{ steps.ver.outputs.version }}"
           delete-branch: true
           labels: |
             documentation
             automation
 
-      # 🧹 Optional: cleanup even if something fails (useful on self-hosted runners)
       - name: Cleanup local tooling environment (always)
         if: always()
         run: |
