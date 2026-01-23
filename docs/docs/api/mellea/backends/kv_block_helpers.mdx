@@ -1,0 +1,39 @@
+---
+title: "mellea.backends.kv_block_helpers"
+sidebarTitle: "mellea.backends.kv_block_helpers"
+description: "Utilities for KV smashing."
+---
+
+
+
+
+## Functions
+
+### `legacy_cache_smash` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/kv_block_helpers.py#L15" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+legacy_cache_smash(a: LegacyCache, b: LegacyCache) -> LegacyCache
+```
+
+
+Concatenates two LegacyCache Ks and Vs along the time axis.
+
+
+### `merge_dynamic_caches` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/kv_block_helpers.py#L24" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+merge_dynamic_caches(caches: Iterable[DynamicCache]) -> DynamicCache
+```
+
+
+Merges two DynamicCache Ks and Vs along the time axis.
+
+
+### `tokens_to_legacy_cache` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/kv_block_helpers.py#L32" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+tokens_to_legacy_cache(model, device: str, tokens_or_cache: BatchEncoding | DynamicCache) -> Iterable[LegacyCache]
+```
+
+
+Prefills and returns Ks and Vs as a LegacyCache.

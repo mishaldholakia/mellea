@@ -1,0 +1,197 @@
+---
+title: "mellea.backends.adapters.adapter"
+sidebarTitle: "mellea.backends.adapters.adapter"
+description: "Module for adapters to backends."
+---
+
+
+
+
+## Functions
+
+### `get_adapter_for_intrinsic` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/adapters/adapter.py#L218" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+get_adapter_for_intrinsic(intrinsic_name: str, intrinsic_adapter_types: list[AdapterType] | tuple[AdapterType, ...], available_adapters: dict[str, T]) -> T | None
+```
+
+
+Finds an adapter from a dict of available adapters based on the intrinsic name and its allowed adapter types.
+
+**Args:**
+- `repo_id`: Name of Hugging Face Hub repository containing the adapters that
+    implement the intrinsic
+- `intrinsic_name`: the name of the intrinsic, like "answerability"
+- `intrinsic_adapter_types`: the adapter types allowed for this intrinsic, like ALORA / LORA
+- `available_adapters`: the available adapters to choose from; maps adapter.qualified_name to the Adapter
+
+**Returns:**
+- an Adapter if found; else None
+
+
+## Classes
+
+### `Adapter` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/adapters/adapter.py#L15" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+
+An adapter that can be added to a single backend.
+
+
+### `OpenAIAdapter` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/adapters/adapter.py#L40" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+
+Adapter for OpenAIBackends.
+
+
+**Methods:**
+
+#### `get_open_ai_path` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/adapters/adapter.py#L44" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+get_open_ai_path(self, base_model_name: str, server_type: _ServerType = _ServerType.LOCALHOST, remote_path: str | None = None) -> str
+```
+
+Returns the path needed to load the adapter.
+
+**Args:**
+- `base_model_name`: the base model; typically the last part of the huggingface model id like "granite-3.3-8b-instruct"
+- `server_type`: the server type (ie LOCALHOST / OPENAI); usually the backend has information on this
+- `remote_path`: optional; used only if the server_type is REMOTE_VLLM; base path at which to find the adapter
+
+
+### `LocalHFAdapter` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/adapters/adapter.py#L60" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+
+Adapter for LocalHFBackends.
+
+
+**Methods:**
+
+#### `get_local_hf_path` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/adapters/adapter.py#L64" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+get_local_hf_path(self, base_model_name: str) -> str
+```
+
+Returns the path needed to load the adapter.
+
+**Args:**
+- `base_model_name`: the base model; typically the last part of the huggingface model id like "granite-3.3-8b-instruct"
+
+
+### `GraniteCommonAdapter` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/adapters/adapter.py#L73" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+
+Adapter for intrinsics that utilize the ``granite-common`` library.
+
+
+**Methods:**
+
+#### `get_open_ai_path` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/adapters/adapter.py#L151" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+get_open_ai_path(self, base_model_name: str, server_type: _ServerType = _ServerType.LOCALHOST, remote_path: str | None = None) -> str
+```
+
+Returns the path needed to load the adapter.
+
+**Args:**
+- `base_model_name`: the base model; typically the last part of the huggingface
+model id like "granite-3.3-8b-instruct"
+- `server_type`: the server type (ie LOCALHOST / OPENAI); usually the backend
+has information on this
+- `remote_path`: optional; used only if the server_type is REMOTE_VLLM; base
+path at which to find the adapter
+
+
+#### `get_local_hf_path` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/adapters/adapter.py#L180" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+get_local_hf_path(self, base_model_name: str) -> str
+```
+
+Returns the path needed to load the adapter.
+
+**Args:**
+- `base_model_name`: the base model; typically the last part of the huggingface
+model id like "granite-3.3-8b-instruct"
+
+
+#### `download_and_get_path` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/adapters/adapter.py#L189" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+download_and_get_path(self, base_model_name: str) -> str
+```
+
+Downloads the required rag intrinsics files if necessary and returns the path to them.
+
+**Args:**
+- `base_model_name`: the base model; typically the last part of the huggingface
+model id like "granite-3.3-8b-instruct"
+
+**Returns:**
+- a path to the files
+
+
+#### `get_path_on_remote` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/adapters/adapter.py#L209" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+get_path_on_remote(self, base_model_name: str, base_path: str) -> str
+```
+
+Assumes the files have already been downloaded on the remote server.
+
+
+### `AdapterMixin` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/adapters/adapter.py#L245" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+
+Mixin class for backends capable of utilizing adapters.
+
+
+**Methods:**
+
+#### `base_model_name` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/adapters/adapter.py#L250" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+base_model_name(self) -> str
+```
+
+Returns the base_model_id of the model used by the backend. For example, `granite-3.3-8b-instruct` for `ibm-granite/granite-3.3-8b-instruct`.
+
+
+#### `add_adapter` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/adapters/adapter.py#L254" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+add_adapter(self, *args, **kwargs)
+```
+
+Adds the given adapter to the backend. Must not have been added to a different backend.
+
+
+#### `load_adapter` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/adapters/adapter.py#L258" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+load_adapter(self, adapter_qualified_name: str)
+```
+
+Loads the given adapter for the backend. Must have previously been added.
+
+
+#### `unload_adapter` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/adapters/adapter.py#L262" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+unload_adapter(self, adapter_qualified_name: str)
+```
+
+Unloads the given adapter from the backend.
+
+
+#### `list_adapters` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/adapters/adapter.py#L266" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+list_adapters(self) -> list[str]
+```
+
+Lists the adapters added via add_adapter().
+
+:returns: list of adapter names that are currently registered with this backend

@@ -1,0 +1,26 @@
+---
+title: "mellea.core.formatter"
+sidebarTitle: "mellea.core.formatter"
+description: "Interfaces for Formatters."
+---
+
+
+
+
+## Classes
+
+### `Formatter` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/core/formatter.py#L8" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+
+A Formatter converts `Component`s into strings and parses `ModelOutputThunk`s into `Component`s (or `CBlock`s).
+
+
+**Methods:**
+
+#### `print` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/core/formatter.py#L12" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+print(self, c: Component | CBlock) -> str
+```
+
+Renders a component for input to a model.

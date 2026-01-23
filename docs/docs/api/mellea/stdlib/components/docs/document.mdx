@@ -1,0 +1,37 @@
+---
+title: "mellea.stdlib.components.docs.document"
+sidebarTitle: "mellea.stdlib.components.docs.document"
+description: "Document component."
+---
+
+
+
+
+## Classes
+
+### `Document` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/components/docs/document.py#L7" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+
+Documents should typically be used in a Message object.
+
+
+**Methods:**
+
+#### `parts` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/components/docs/document.py#L16" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+parts(self) -> list[Component | CBlock]
+```
+
+The set of all the constituent parts of the `Component`.
+
+
+#### `format_for_llm` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/stdlib/components/docs/document.py#L20" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+format_for_llm(self) -> str
+```
+
+Formats the `Document` into a string.
+
+Returns: a string

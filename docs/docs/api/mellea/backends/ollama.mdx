@@ -7,17 +7,9 @@ description: "A model backend wrapping the Ollama Python SDK."
 
 
 
-
-import { SidebarFix } from "/snippets/SidebarFix.mdx";
-
-<SidebarFix />
-
 ## Functions
 
-<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
-
-
-### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `chat_response_delta_merge` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/ollama.py#L571" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+### `chat_response_delta_merge` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/ollama.py#L592" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 chat_response_delta_merge(mot: ModelOutputThunk, delta: ollama.ChatResponse)
@@ -31,26 +23,17 @@ Merges the individual ChatResponse chunks from a streaming response into a singl
 - `delta`: the most recent ollama ChatResponse.
 
 
-<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
-
 ## Classes
 
-<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
-
-
-### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#4ADE8033]/20 text-[#15803D]">CLASS</span> `OllamaModelBackend` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/ollama.py#L43" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+### `OllamaModelBackend` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/ollama.py#L36" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 
 A model that uses the Ollama Python SDK for local inference.
 
 
-
-<div className="h-8" />
 **Methods:**
 
-<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
-
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `is_model_available` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/ollama.py#L136" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### `is_model_available` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/ollama.py#L129" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 is_model_available(self, model_name)
@@ -65,23 +48,19 @@ Checks if a specific Ollama model is available locally.
 - True if the model is available, False otherwise.
 
 
-<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
-
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_context` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/ollama.py#L255" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### `generate_from_context` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/ollama.py#L248" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
-generate_from_context(self, action: Component | CBlock, ctx: Context)
+generate_from_context(self, action: Component[C] | CBlock, ctx: Context) -> tuple[ModelOutputThunk[C], Context]
 ```
 
 See `generate_from_chat_context`.
 
 
-<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
-
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_chat_context` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/ollama.py#L278" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### `generate_from_chat_context` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/ollama.py#L271" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
-generate_from_chat_context(self, action: Component | CBlock, ctx: Context) -> ModelOutputThunk
+generate_from_chat_context(self, action: Component[C] | CBlock, ctx: Context) -> ModelOutputThunk[C]
 ```
 
 Generates a ModelOutputThunk. The final value for this object can be awaited.
@@ -95,20 +74,28 @@ This will not always work, because sometimes we want to use non-chat models.
 - `RuntimeError`: If not called from a thread with a running event loop.
 
 
-<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
-
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `generate_from_raw` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/ollama.py#L390" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### `generate_from_raw` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/ollama.py#L387" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
-generate_from_raw(self, actions: list[Component | CBlock], ctx: Context) -> list[ModelOutputThunk]
+generate_from_raw(self, actions: list[Component[C]], ctx: Context) -> list[ModelOutputThunk[C]]
+```
+
+#### `generate_from_raw` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/ollama.py#L398" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+generate_from_raw(self, actions: list[Component[C] | CBlock], ctx: Context) -> list[ModelOutputThunk[C | str]]
+```
+
+#### `generate_from_raw` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/ollama.py#L408" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+generate_from_raw(self, actions: Sequence[Component[C] | CBlock], ctx: Context) -> list[ModelOutputThunk]
 ```
 
 Generate using the generate api. Gives the input provided to the model without templating.
 
 
-<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
-
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `processing` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/ollama.py#L502" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### `processing` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/ollama.py#L524" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 processing(self, mot: ModelOutputThunk, chunk: ollama.ChatResponse, tools: dict[str, Callable])
@@ -117,14 +104,10 @@ processing(self, mot: ModelOutputThunk, chunk: ollama.ChatResponse, tools: dict[
 Called during generation to add information from a single ChatResponse to the ModelOutputThunk.
 
 
-<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />
-
-#### <span className="ml-2 inline-flex items-center rounded-full px-2 py-1 text-[0.7rem] font-bold tracking-wide bg-[#3064E3]/20 text-[#1D4ED8]">FUNC</span> `post_processing` <sup><a href="https://github.com/mishaldholakia/mellea/blob/main/mellea/backends/ollama.py#L534" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+#### `post_processing` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/backends/ollama.py#L556" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
 
 ```python
 post_processing(self, mot: ModelOutputThunk, conversation: list[dict], tools: dict[str, Callable], _format)
 ```
 
 Called when generation is done.
-
-<div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-4" />

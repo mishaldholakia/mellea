@@ -1,0 +1,77 @@
+---
+title: "mellea.core.utils"
+sidebarTitle: "mellea.core.utils"
+description: "Utils for Core Library."
+---
+
+
+
+
+## Classes
+
+### `RESTHandler` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/core/utils.py#L11" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+
+RESTHandler for logging.
+
+
+**Methods:**
+
+#### `emit` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/core/utils.py#L21" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+emit(self, record)
+```
+
+Attempts to emit a record to FLOG, or silently fails.
+
+
+### `JsonFormatter` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/core/utils.py#L38" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+
+Logging formatter for JSON.
+
+
+**Methods:**
+
+#### `format` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/core/utils.py#L41" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+format(self, record)
+```
+
+Formats record as a JSON serializable object.
+
+
+### `CustomFormatter` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/core/utils.py#L58" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+
+A nice custom formatter copied from [https://stackoverflow.com/questions/384076/how-can-i-color-python-logging-output](Sergey Pleshakov's post on StackOvervlow).
+
+
+**Methods:**
+
+#### `format` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/core/utils.py#L77" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+format(self, record)
+```
+
+The format fn.
+
+
+### `FancyLogger` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/core/utils.py#L84" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+
+A fancy logger.
+
+
+**Methods:**
+
+#### `get_logger` <sup><a href="https://github.com/generative-computing/mellea/blob/main/mellea/core/utils.py#L99" target="_blank"><Icon icon="github" style="width: 14px; height: 14px;" /></a></sup>
+
+```python
+get_logger()
+```
+
+Returns a FancyLogger.logger and sets level based upon env vars.
